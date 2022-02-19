@@ -15,7 +15,7 @@ class InputWidget extends StatelessWidget {
       children: [
         Container(
           padding: EdgeInsets.fromLTRB(24, 0, 24, 4),
-          child: Text("${label}"),
+          child: Text(label ?? ""),
         ),
         Container(
           height: 50,
@@ -33,7 +33,7 @@ class InputWidget extends StatelessWidget {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: InputDecoration(
               border: InputBorder.none,
-              hintText: '${hintText}',
+              hintText: hintText,
               errorStyle: TextStyle(color: Colors.redAccent),
             ),
             onChanged: (val) => onChanged!(val),
