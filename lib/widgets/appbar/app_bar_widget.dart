@@ -34,14 +34,14 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
               width: 32,
               height: 32,
               child: Image.asset(
-                iconPath!,
+                iconPath ?? "assets/icons/ArrowLeft.png",
                 color: color,
               ),
             ),
-            onPressed: onPressed ?? (){
-              Navigator.pop(context);
-            },
-            
+            onPressed: onPressed ??
+                () {
+                  Navigator.pop(context);
+                },
           ),
           SizedBox(width: 12),
           Text(
