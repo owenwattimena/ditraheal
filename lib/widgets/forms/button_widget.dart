@@ -23,7 +23,7 @@ class ButtonWidget extends StatelessWidget {
               borderRadius: new BorderRadius.circular(50.0),
             ),
           ),
-          child: Text('$text'),
+          child: Text('$text', style:primaryTextStyle.copyWith(fontWeight: FontWeight.bold)),
         ),
       ),
     );

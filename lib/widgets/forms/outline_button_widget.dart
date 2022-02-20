@@ -27,7 +27,7 @@ class OutlineButtonWidget extends StatelessWidget {
           ),
           child: Text(
             '$text',
-            style: TextStyle(color: color ?? primaryColor),
+            style: primaryTextStyle.copyWith(color: color ?? primaryColor, fontWeight: FontWeight.bold),
           ),
         ),
       ),

@@ -15,6 +15,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     double statusBarHeight = MediaQuery.of(context).padding.top;
     return Container(
       height: _prefferedHeight + statusBarHeight,
+      padding: EdgeInsets.only(left: 12, top: statusBarHeight),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -28,7 +29,6 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       ),
       child: Row(
         children: [
-          SizedBox(width: 12),
           IconButton(
             icon: Container(
               width: 32,
@@ -38,7 +38,10 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                 color: color,
               ),
             ),
-            onPressed: onPressed,
+            onPressed: onPressed ?? (){
+              Navigator.pop(context);
+            },
+            
           ),
           SizedBox(width: 12),
           Text(

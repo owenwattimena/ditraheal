@@ -19,6 +19,8 @@ class InputDatetimeWidget extends StatelessWidget {
       child: DateTimeFormField(
         decoration: InputDecoration(
           border: InputBorder.none,
+          // border: OutlineInputBorder(),
+          contentPadding: EdgeInsets.only(top: 15),
           hintText: 'Tanggal Lahir',
           hintStyle: TextStyle(color: Colors.black45),
           errorStyle: TextStyle(color: Colors.redAccent),
@@ -26,6 +28,7 @@ class InputDatetimeWidget extends StatelessWidget {
           suffixIcon: Icon(Icons.event_note),
           // labelText: 'Tanggal Lahir',
         ),
+        lastDate: DateTime.now(),
         mode: DateTimeFieldPickerMode.date,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (datetime) => validator!(datetime),

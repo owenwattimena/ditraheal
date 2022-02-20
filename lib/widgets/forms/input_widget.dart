@@ -5,8 +5,10 @@ class InputWidget extends StatelessWidget {
   final TextEditingController? textController;
   final Function(String)? onChanged;
   final Function(String)? validator;
+  final TextInputType? keyboardType;
+  final TextCapitalization? textCapitalization;
 
-  InputWidget({this.label, this.hintText, this.textController, this.onChanged, this.validator});
+  InputWidget({this.label, this.hintText, this.textController, this.onChanged, this.validator, this.keyboardType, this.textCapitalization});
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +31,19 @@ class InputWidget extends StatelessWidget {
           ),
           child: TextFormField(
             controller: textController,
+            keyboardType: keyboardType ?? TextInputType.text,
+            textCapitalization: textCapitalization ?? TextCapitalization.none,
             validator: (val) => validator!(val!),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: InputDecoration(
               border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 5),
+              // border: OutlineInputBorder(),
+              hintStyle: TextStyle(color: Colors.black45),
               hintText: hintText,
               errorStyle: TextStyle(color: Colors.redAccent),
             ),
+            textInputAction: TextInputAction.next, 
             onChanged: (val) => onChanged!(val),
           ),
         ),
