@@ -7,8 +7,9 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final String? iconPath;
   final Function()? onPressed;
   final Color color;
+  final bool shadow;
 
-  AppBarWidget({this.title, this.iconPath, this.onPressed, this.color = Colors.black});
+  AppBarWidget({this.title, this.iconPath, this.onPressed, this.color = Colors.black, this.shadow = true});
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +19,14 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       padding: EdgeInsets.only(left: 12, top: statusBarHeight),
       decoration: BoxDecoration(
         color: Colors.white,
-        boxShadow: [
-          BoxShadow(
+        boxShadow: (shadow) ?[
+           BoxShadow(
             color: Colors.black.withOpacity(0.25),
             spreadRadius: 0,
             blurRadius: 4,
             offset: Offset(0, 1), // changes position of shadow
           ),
-        ],
+        ] : [],
       ),
       child: Row(
         children: [

@@ -3,7 +3,7 @@ part of "../widgets.dart";
 class InputWidget extends StatelessWidget {
   final String? label, hintText;
   final TextEditingController? textController;
-  final Function(String)? onChanged;
+  final void Function(String)? onChanged;
   final Function(String)? validator;
   final TextInputType? keyboardType;
   final TextCapitalization? textCapitalization;
@@ -15,10 +15,10 @@ class InputWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        (label != null) ? Container(
           padding: EdgeInsets.fromLTRB(24, 0, 24, 4),
           child: Text(label ?? ""),
-        ),
+        ) : SizedBox(),
         Container(
           height: 50,
           margin: EdgeInsets.fromLTRB(24, 0, 24, 4),

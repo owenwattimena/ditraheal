@@ -4,12 +4,13 @@ class OutlineButtonWidget extends StatelessWidget {
   final String? text;
   final Color? color;
   final Function()? onPressed;
-  OutlineButtonWidget({this.text, this.color, this.onPressed});
+  final EdgeInsetsGeometry? padding;
+  OutlineButtonWidget({this.text, this.color, this.onPressed, this.padding});
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 12),
-      padding: EdgeInsets.symmetric(horizontal: 24),
+      padding: padding ?? EdgeInsets.symmetric(horizontal: 24),
       child: ConstrainedBox(
         constraints: BoxConstraints.tightFor(width: double.infinity, height: 50),
         child: ElevatedButton(

@@ -1,10 +1,10 @@
 part of '../pages.dart';
 
-class SosialSigninPage extends StatefulWidget {
-  _SosialSigninPageState createState() => _SosialSigninPageState();
+class SosialSignupPage extends StatefulWidget {
+  _SosialSignupPageState createState() => _SosialSignupPageState();
 }
 
-class _SosialSigninPageState extends State<SosialSigninPage> {
+class _SosialSignupPageState extends State<SosialSignupPage> {
   String? _facebookValue, _instagramValue, _tiktokValue;
   List _folowers = [
     "Tidak ada",
@@ -51,11 +51,11 @@ class _SosialSigninPageState extends State<SosialSigninPage> {
                 ),
                 ButtonWidget(
                     text: "Selanjutnya",
-                    onPresed: () {
+                    onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => HobiSigninPage(),
+                          builder: (context) => HobiSignupPage(),
                         ),
                       );
                     },

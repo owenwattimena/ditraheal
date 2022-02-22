@@ -1,13 +1,13 @@
 part of "../pages.dart";
 
-class HobiSigninPage extends StatefulWidget {
-  const HobiSigninPage({Key? key}) : super(key: key);
+class HobiSignupPage extends StatefulWidget {
+  const HobiSignupPage({Key? key}) : super(key: key);
 
   @override
-  _HobiSigninPageState createState() => _HobiSigninPageState();
+  _HobiSignupPageState createState() => _HobiSignupPageState();
 }
 
-class _HobiSigninPageState extends State<HobiSigninPage> {
+class _HobiSignupPageState extends State<HobiSignupPage> {
   bool _selectedSeni = false;
   bool _selectedBaca = false;
   bool _selectedOlahraga = false;
@@ -58,7 +58,7 @@ class _HobiSigninPageState extends State<HobiSigninPage> {
                 ),
                 ButtonWidget(
                   text: "Daftar",
-                  onPresed: () {},
+                  onPressed: () {},
                 ),
               ],
             ),
