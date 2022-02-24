@@ -19,18 +19,26 @@ class _LandingTraumaQuizState extends State<LandingTraumaQuiz> {
             child: Center(
               child: DialogWidget(
                 title: "TES LEVEL TRAUMA",
-                width:deviceWidth - (24 * 2),
+                width: deviceWidth - (24 * 2),
                 child: Text(
                   "Sebelum melakukan pemulihan trauma silahkan isi kuisioner untuk melihat level trauma anda. Pada kuisioner tersedia pilihan jawaban atas suatu pertanyaan. Setiap jawaban memiliki skor masing-masing. Semakin besar skor semakin tinggi tingkat kepercayaan anda terhadap suatu pertanyaan.",
                   style: primaryTextStyle,
                 ),
                 primaryButtonText: "Mulai Tes",
-                primaryButtonOnPressed: (){},
+                primaryButtonOnPressed: gotoTraumaQuiz,
               ),
-              
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  void gotoTraumaQuiz() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TraumaQuiz(),
       ),
     );
   }

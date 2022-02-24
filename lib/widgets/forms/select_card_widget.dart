@@ -6,13 +6,7 @@ class SelectCardWidget extends StatelessWidget {
   final Function(bool)? onTap;
   final bool isSelected;
 
-  const SelectCardWidget(
-      {Key? key,
-      required this.title,
-      this.imagePath,
-      this.onTap,
-      this.isSelected = false})
-      : super(key: key);
+  const SelectCardWidget({Key? key, required this.title, this.imagePath, this.onTap, this.isSelected = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,15 +36,18 @@ class SelectCardWidget extends StatelessWidget {
             ),
           ),
           child: Row(
+            mainAxisAlignment: (imagePath == null) ? MainAxisAlignment.center : MainAxisAlignment.start,
             children: [
-              Container(
-                width: 60,
-                height: 60,
-                margin: EdgeInsets.only(right: 12),
-                child: Image.asset(
-                  imagePath ?? "assets/icons/ArrowLeft.png",
-                ),
-              ),
+              (imagePath != null)
+                  ? Container(
+                      width: 60,
+                      height: 60,
+                      margin: EdgeInsets.only(right: 12),
+                      child: Image.asset(
+                        imagePath!,
+                      ),
+                    )
+                  : SizedBox(),
               Text(
                 title,
                 style: primaryTextStyle.copyWith(

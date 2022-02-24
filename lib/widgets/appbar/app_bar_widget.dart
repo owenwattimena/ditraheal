@@ -4,12 +4,14 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final double _prefferedHeight = 70;
 
   final String? title;
+  final bool titleCenter;
   final String? iconPath;
   final Function()? onPressed;
   final Color color;
   final bool shadow;
+  final bool showBackButton;
 
-  AppBarWidget({this.title, this.iconPath, this.onPressed, this.color = Colors.black, this.shadow = true});
+  AppBarWidget({this.title, this.iconPath, this.onPressed, this.color = Colors.black, this.shadow = true, this.titleCenter = false, this.showBackButton = true});
 
   @override
   Widget build(BuildContext context) {
@@ -19,31 +21,36 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       padding: EdgeInsets.only(left: 12, top: statusBarHeight),
       decoration: BoxDecoration(
         color: Colors.white,
-        boxShadow: (shadow) ?[
-           BoxShadow(
-            color: Colors.black.withOpacity(0.25),
-            spreadRadius: 0,
-            blurRadius: 4,
-            offset: Offset(0, 1), // changes position of shadow
-          ),
-        ] : [],
+        boxShadow: (shadow)
+            ? [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.25),
+                  spreadRadius: 0,
+                  blurRadius: 4,
+                  offset: Offset(0, 1), // changes position of shadow
+                ),
+              ]
+            : [],
       ),
       child: Row(
+        mainAxisAlignment: (titleCenter) ? MainAxisAlignment.center : MainAxisAlignment.start,
         children: [
-          IconButton(
-            icon: Container(
-              width: 32,
-              height: 32,
-              child: Image.asset(
-                iconPath ?? "assets/icons/ArrowLeft.png",
-                color: color,
-              ),
-            ),
-            onPressed: onPressed ??
-                () {
-                  Navigator.pop(context);
-                },
-          ),
+          (showBackButton)
+              ? IconButton(
+                  icon: Container(
+                    width: 32,
+                    height: 32,
+                    child: Image.asset(
+                      iconPath ?? "assets/icons/ArrowLeft.png",
+                      color: color,
+                    ),
+                  ),
+                  onPressed: onPressed ??
+                      () {
+                        Navigator.pop(context);
+                      },
+                )
+              : SizedBox(),
           SizedBox(width: 12),
           Text(
             title ?? "",

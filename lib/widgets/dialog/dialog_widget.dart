@@ -39,12 +39,13 @@ class DialogWidget extends StatelessWidget {
                 ),
               ),
               Container(
+                width: double.infinity,
                 decoration: BoxDecoration(
                   color: greyColor,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 margin: EdgeInsets.symmetric(horizontal: 10),
-                padding: EdgeInsets.all(9),
+                padding: EdgeInsets.symmetric(horizontal: 9, vertical: 16),
                 child: child,
               ),
               ButtonWidget(
@@ -52,11 +53,13 @@ class DialogWidget extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 onPressed: primaryButtonOnPressed,
               ),
-              (secondaryButtonText != null) ? OutlineButtonWidget(
-                text: secondaryButtonText,
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                onPressed: secondaryButtonOnPressed,
-              ) : SizedBox(),
+              (secondaryButtonText != null)
+                  ? OutlineButtonWidget(
+                      text: secondaryButtonText,
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      onPressed: secondaryButtonOnPressed,
+                    )
+                  : SizedBox(),
               SizedBox(
                 height: 10,
               )
