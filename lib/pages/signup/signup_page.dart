@@ -5,10 +5,21 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  final AuthController authC = Get.put(AuthController());
   TextEditingController namaController = new TextEditingController();
   TextEditingController emailController = new TextEditingController();
   TextEditingController noHpController = new TextEditingController();
   DateTime? tanggalLahir;
+
+  String? _facebookValue;
+  List _folowers = [
+    "Tidak ada",
+    "1 s/d 1K",
+    "1K s/d 10K",
+    "10K s/d 100K",
+    "100K s/d 1Jt",
+    "Lebih dari 1Jt"
+  ];
 
   GlobalKey<FormState> _key = GlobalKey<FormState>();
 
@@ -44,9 +55,13 @@ class _SignupPageState extends State<SignupPage> {
                       children: [
                         Text(
                           "Aplikasi Intervensi Kepatuhan Digital Trauma Healing",
-                          style: headlineTextStyle.copyWith(color: Colors.white),
+                          style:
+                              headlineTextStyle.copyWith(color: Colors.white),
                         ),
-                        Text("\“Rasa sakit yang kamu rasakan hari ini akan menjadi kekuatan yang akan kamu rasakan besok.\”", style: primaryTextStyle.copyWith(color: Colors.white))
+                        Text(
+                            "\“Rasa sakit yang kamu rasakan hari ini akan menjadi kekuatan yang akan kamu rasakan besok.\”",
+                            style:
+                                primaryTextStyle.copyWith(color: Colors.white))
                       ],
                     ),
                   ),
@@ -61,7 +76,7 @@ class _SignupPageState extends State<SignupPage> {
                   InputWidget(
                     label: "Nama Lengkap",
                     hintText: "Nama Lengkap",
-                    textController: namaController,
+                    textController: authC.namaController.value,
                     onChanged: (_) => setState(() {}),
                     textCapitalization: TextCapitalization.sentences,
                     validator: (val) {
@@ -70,24 +85,24 @@ class _SignupPageState extends State<SignupPage> {
                       }
                     },
                   ),
-                  InputWidget(
-                    label: "Email",
-                    hintText: "Email",
-                    textController: emailController,
-                    onChanged: (_) => setState(() {}),
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (val) {
-                      String pattern = r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
-                      RegExp regex = RegExp(pattern);
-                      if (val.isEmpty) 
-                        return 'Tidak boleh kosong';
-                      else if (!regex.hasMatch(val)) return 'Email tidak valid';
-                    },
-                  ),
+                  // InputWidget(
+                  //   label: "Email",
+                  //   hintText: "Email",
+                  //   textController: authC.emailController.value,
+                  //   onChanged: (_) => setState(() {}),
+                  //   keyboardType: TextInputType.emailAddress,
+                  //   validator: (val) {
+                  //     String pattern = r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
+                  //     RegExp regex = RegExp(pattern);
+                  //     if (val.isEmpty)
+                  //       return 'Tidak boleh kosong';
+                  //     else if (!regex.hasMatch(val)) return 'Email tidak valid';
+                  //   },
+                  // ),
                   InputWidget(
                     label: "No HP",
                     hintText: "No HP",
-                    textController: noHpController,
+                    textController: authC.noHpController.value,
                     onChanged: (_) => setState(() {}),
                     keyboardType: TextInputType.phone,
                     validator: (val) {
@@ -106,7 +121,7 @@ class _SignupPageState extends State<SignupPage> {
                     label: "Tanggal Lahir",
                     onDateSelected: (val) {
                       setState(() {
-                        tanggalLahir = val;
+                        authC.setTanggalLahir = val;
                       });
                     },
                     validator: (datetime) {
@@ -115,10 +130,31 @@ class _SignupPageState extends State<SignupPage> {
                       }
                     },
                   ),
+                  SizedBox(height: 8),
+                  InputWidget(
+                    label: "Alamat",
+                    hintText: "Alamat",
+                    textController: authC.noHpController.value,
+                    onChanged: (_) => setState(() {}),
+                    keyboardType: TextInputType.streetAddress,
+                    validator: (val) {
+                      if (val.isEmpty) return 'Tidak boleh kosong';
+                    },
+                  ),
+                  InputSelectWidget(
+                    top: 0,
+                    value: _facebookValue,
+                    label: "Follower Facebook",
+                    hint: "Jumlah Folllower Facebook",
+                    options: _folowers,
+                    onChanged: (val) => setState(() => _facebookValue = val),
+                  ),
                   ButtonWidget(
+                    margin: EdgeInsets.only(top: 24, left: 24, right: 24),
                     text: "Selanjutnya",
                     onPressed: () {
-                      if (_key.currentState!.validate()) gotoSosialSigninPage();
+                      if (_key.currentState!.validate())
+                        Get.to(HobiSignupPage());
                     },
                   ),
                   OutlineButtonWidget(
@@ -143,6 +179,7 @@ class _SignupPageState extends State<SignupPage> {
       ),
     );
   }
+
   void toSigninPage() {
     Navigator.push(
       context,

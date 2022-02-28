@@ -7,11 +7,13 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final bool titleCenter;
   final String? iconPath;
   final Function()? onPressed;
-  final Color color;
+  final Color? iconColor;
+  final Color? color;
+  final Color? titleColor;
   final bool shadow;
   final bool showBackButton;
 
-  AppBarWidget({this.title, this.iconPath, this.onPressed, this.color = Colors.black, this.shadow = true, this.titleCenter = false, this.showBackButton = true});
+  AppBarWidget({this.title, this.iconPath, this.onPressed, this.iconColor = Colors.black, this.color, this.shadow = true, this.titleCenter = false, this.showBackButton = true, this.titleColor});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       height: _prefferedHeight + statusBarHeight,
       padding: EdgeInsets.only(left: 12, top: statusBarHeight),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: color ?? Colors.white,
         boxShadow: (shadow)
             ? [
                 BoxShadow(
@@ -42,7 +44,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                     height: 32,
                     child: Image.asset(
                       iconPath ?? "assets/icons/ArrowLeft.png",
-                      color: color,
+                      color: iconColor,
                     ),
                   ),
                   onPressed: onPressed ??
@@ -54,7 +56,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           SizedBox(width: 12),
           Text(
             title ?? "",
-            style: primaryTextStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 16),
+            style: primaryTextStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 16, color: titleColor ?? Colors.black),
           ),
         ],
       ),

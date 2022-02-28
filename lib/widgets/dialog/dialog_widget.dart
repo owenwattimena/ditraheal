@@ -49,6 +49,7 @@ class DialogWidget extends StatelessWidget {
                 child: child,
               ),
               ButtonWidget(
+                margin: EdgeInsets.only(top:10),
                 text: primaryButtonText,
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 onPressed: primaryButtonOnPressed,

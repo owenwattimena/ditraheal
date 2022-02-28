@@ -50,6 +50,7 @@ class _SosialSignupPageState extends State<SosialSignupPage> {
                   onChanged: (val) => setState(() => _tiktokValue = val),
                 ),
                 ButtonWidget(
+                  margin: EdgeInsets.only(top: 24, left:24, right:24),
                     text: "Selanjutnya",
                     onPressed: () {
                       Navigator.push(

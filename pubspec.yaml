@@ -21,6 +21,7 @@ dependencies:
   date_field: ^2.1.2
   flutter:
     sdk: flutter
+  get: ^4.6.1
 
 dev_dependencies:
   flutter_test:

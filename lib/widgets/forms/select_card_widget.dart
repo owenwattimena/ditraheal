@@ -5,17 +5,18 @@ class SelectCardWidget extends StatelessWidget {
   final String? imagePath;
   final Function(bool)? onTap;
   final bool isSelected;
+  final EdgeInsetsGeometry? margin;
 
-  const SelectCardWidget({Key? key, required this.title, this.imagePath, this.onTap, this.isSelected = false}) : super(key: key);
+  const SelectCardWidget({Key? key, required this.title, this.imagePath, this.onTap, this.isSelected = false, this.margin}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
-        left: 24,
-        right: 24,
-        bottom: 12,
-      ),
+      // margin: EdgeInsets.only(
+      //   left: 24,
+      //   right: 24,
+      //   bottom: 12,
+      // ),
       child: InkWell(
         onTap: () {
           if (isSelected) {
@@ -27,6 +28,7 @@ class SelectCardWidget extends StatelessWidget {
         },
         child: Container(
           height: 75,
+          margin: margin ?? EdgeInsets.zero,
           padding: EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
             color: (isSelected) ? activeColor : greyColor,

@@ -5,6 +5,7 @@ class InputSelectWidget extends StatelessWidget {
   final String? hint;
   final String? value;
   final List options;
+  final double? top;
   final Function(String?) onChanged;
   const InputSelectWidget(
       {Key? key,
@@ -12,7 +13,7 @@ class InputSelectWidget extends StatelessWidget {
       this.hint,
       this.value,
       required this.options,
-      required this.onChanged})
+      required this.onChanged, this.top})
       : super(key: key);
 
   @override
@@ -21,7 +22,7 @@ class InputSelectWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          margin: EdgeInsets.only(top: 8),
+          margin: EdgeInsets.only(top: top ?? 8),
           padding: EdgeInsets.fromLTRB(24, 0, 24, 4),
           child: Text(label ?? ""),
         ),

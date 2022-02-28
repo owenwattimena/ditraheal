@@ -5,14 +5,15 @@ class ButtonWidget extends StatelessWidget {
   final Color? color;
   final Function()? onPressed;
   final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? margin;
 
-  ButtonWidget({this.text, this.color, this.onPressed, this.padding});
+  ButtonWidget({this.text, this.color, this.onPressed, this.padding, this.margin});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 16),
-      padding: padding ?? EdgeInsets.symmetric(horizontal: 24),
+      margin: margin ?? EdgeInsets.zero,
+      padding: padding ?? EdgeInsets.zero,
       child: ConstrainedBox(
         constraints: BoxConstraints.tightFor(width: double.infinity, height: 50),
         child: ElevatedButton(

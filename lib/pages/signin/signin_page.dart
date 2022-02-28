@@ -26,7 +26,7 @@ class _SigninPageState extends State<SigninPage> {
               child: ListView(
                 children: [
                   Container(
-                    margin:EdgeInsets.only(bottom: 31),
+                    margin: EdgeInsets.only(bottom: 31),
                     child: Text(
                       "Masuk Dengan Nomor HP",
                       style: primaryTextStyle.copyWith(
@@ -36,9 +36,8 @@ class _SigninPageState extends State<SigninPage> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-
                   InputWidget(
-                    textController:_noHpController,
+                    textController: _noHpController,
                     keyboardType: TextInputType.phone,
                     hintText: "Nomor HP",
                     onChanged: (_) => setState(() {}),
@@ -50,11 +49,11 @@ class _SigninPageState extends State<SigninPage> {
                       else if (!regex.hasMatch(val)) return 'No HP tidak valid';
                     },
                   ),
-
                   ButtonWidget(
                     text: "Masuk",
+                    margin: EdgeInsets.only(top: 12, left: 24, right: 24),
                     onPressed: () {
-                      if (_key.currentState!.validate()){
+                      if (_key.currentState!.validate()) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -64,7 +63,12 @@ class _SigninPageState extends State<SigninPage> {
                       }
                     },
                   ),
-                  OutlineButtonWidget(text: "Belum pernah daftar?", onPressed: (){Navigator.pop(context);},)
+                  OutlineButtonWidget(
+                    text: "Belum pernah daftar?",
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  )
                 ],
               ),
             ),

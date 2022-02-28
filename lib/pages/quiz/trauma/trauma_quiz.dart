@@ -44,6 +44,7 @@ class _TraumaQuizState extends State<TraumaQuiz> {
                 ),
                 SizedBox(height: 24),
                 SelectCardWidget(
+                  margin: EdgeInsets.only(left: 24, right: 24, bottom: 6),
                   title: "Benar Sekali",
                   isSelected: jawabanTerpilih['benar_sekali']!,
                   onTap: (val) {
@@ -59,6 +60,7 @@ class _TraumaQuizState extends State<TraumaQuiz> {
                   },
                 ),
                 SelectCardWidget(
+                  margin: EdgeInsets.only(left: 24, right: 24, bottom: 6),
                   title: "Cukup Benar",
                   isSelected: jawabanTerpilih['cukup_benar']!,
                   onTap: (val) {
@@ -74,6 +76,7 @@ class _TraumaQuizState extends State<TraumaQuiz> {
                   },
                 ),
                 SelectCardWidget(
+                  margin: EdgeInsets.only(left: 24, right: 24, bottom: 6),
                   title: "Hampir Tidak Benar",
                   isSelected: jawabanTerpilih['hampir_tidak_benar']!,
                   onTap: (val) {
@@ -90,6 +93,7 @@ class _TraumaQuizState extends State<TraumaQuiz> {
                   },
                 ),
                 SelectCardWidget(
+                  margin: EdgeInsets.only(left: 24, right: 24),
                   title: "Sama Sekali Tidak Benar",
                   isSelected: jawabanTerpilih['sama_sekali_tidak_benar']!,
                   onTap: (val) {
@@ -106,6 +110,7 @@ class _TraumaQuizState extends State<TraumaQuiz> {
                   },
                 ),
                 ButtonWidget(
+                  margin: EdgeInsets.only(top: 24, left:24, right:24),
                   text: "Jawab",
                   onPressed: gotoResult,
                 ),
