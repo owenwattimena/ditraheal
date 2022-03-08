@@ -54,12 +54,12 @@ class _DashboardPageState extends State<DashboardPage> {
                       child: DashboardContent(),
                     ),
                     SizedBox(height: 24),
-                    ButtonWidget(
-                      padding: EdgeInsets.symmetric(horizontal: 24),
-                      text: "Expert System",
-                      onPressed: () {},
-                    ),
-                    SizedBox(height: 24),
+                    // ButtonWidget(
+                    //   padding: EdgeInsets.symmetric(horizontal: 24),
+                    //   text: "Expert System",
+                    //   onPressed: () {},
+                    // ),
+                    // SizedBox(height: 24),
                   ],
                 ),
               ),

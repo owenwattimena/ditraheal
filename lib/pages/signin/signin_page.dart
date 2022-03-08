@@ -8,6 +8,7 @@ class SigninPage extends StatefulWidget {
 }
 
 class _SigninPageState extends State<SigninPage> {
+  final authC = Get.find<AuthController>();
   GlobalKey<FormState> _key = GlobalKey<FormState>();
   TextEditingController _noHpController = new TextEditingController();
 
@@ -47,6 +48,19 @@ class _SigninPageState extends State<SigninPage> {
                       if (val.isEmpty)
                         return 'Tidak boleh kosong';
                       else if (!regex.hasMatch(val)) return 'No HP tidak valid';
+                    },
+                  ),
+                  InputDatetimeWidget(
+                    label: "Tanggal Lahir",
+                    onDateSelected: (val) {
+                      setState(() {
+                        authC.setTanggalLahir = val;
+                      });
+                    },
+                    validator: (datetime) {
+                      if (datetime == null) {
+                        return 'Tidak boleh kosong';
+                      }
                     },
                   ),
                   ButtonWidget(

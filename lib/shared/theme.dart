@@ -7,6 +7,6 @@ Color darkGreyColor = Color(0xff868686);
 Color primaryColor = Color(0xff378BD9);
 Color activeColor = Color(0xffD4EBFF);
 Color accentColor = Color(0xff311D69);
-Color lightGreenColor = Color(0xffA7FFD5);
+Color lightGreenColor = Color(0xff9EFFDA);
 Color darkGreenColor = Color(0xff39B97B);
 

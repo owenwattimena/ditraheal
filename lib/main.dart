@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'pages/pages.dart';
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
