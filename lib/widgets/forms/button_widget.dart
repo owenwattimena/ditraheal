@@ -3,11 +3,12 @@ part of "../widgets.dart";
 class ButtonWidget extends StatelessWidget {
   final String? text;
   final Color? color;
+  final bool? fullWidth;
   final Function()? onPressed;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
 
-  ButtonWidget({this.text, this.color, this.onPressed, this.padding, this.margin});
+  ButtonWidget({this.text, this.color, this.onPressed, this.padding, this.margin, this.fullWidth = true});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class ButtonWidget extends StatelessWidget {
       margin: margin ?? EdgeInsets.zero,
       padding: padding ?? EdgeInsets.zero,
       child: ConstrainedBox(
-        constraints: BoxConstraints.tightFor(width: double.infinity, height: 50),
+        constraints: fullWidth! ? BoxConstraints.tightFor(width: double.infinity, height: 50) : BoxConstraints.tightFor(height: 50),
         child: ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(

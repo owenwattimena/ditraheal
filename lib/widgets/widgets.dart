@@ -15,3 +15,4 @@ part "components/card_widget.dart";
 part "components/sosial_card.dart";
 part "components/header_with_card.dart";
 part "components/dashboard_content.dart";
+part "forms/card_with_check.dart";
