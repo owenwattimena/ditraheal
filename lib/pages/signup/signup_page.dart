@@ -134,7 +134,7 @@ class _SignupPageState extends State<SignupPage> {
                   InputWidget(
                     label: "Alamat",
                     hintText: "Alamat",
-                    textController: authC.noHpController.value,
+                    textController: authC.alamatController.value,
                     onChanged: (_) => setState(() {}),
                     keyboardType: TextInputType.streetAddress,
                     validator: (val) {

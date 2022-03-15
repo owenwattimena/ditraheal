@@ -6,6 +6,7 @@ class AuthController extends GetxController{
   Rx<TextEditingController> namaController = new TextEditingController().obs;
   Rx<TextEditingController> emailController = new TextEditingController().obs;
   Rx<TextEditingController> noHpController = new TextEditingController().obs;
+  Rx<TextEditingController> alamatController = new TextEditingController().obs;
   Rx<DateTime?> tanggalLahir = DateTime.now().obs;
   RxString hobi = "".obs;
 

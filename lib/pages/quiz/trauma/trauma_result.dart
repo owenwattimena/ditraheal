@@ -16,7 +16,7 @@ class TraumaResult extends StatelessWidget {
             ),
             primaryButtonText: "Lanjut Ke Tes Efikasi",
             primaryButtonOnPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder:(context)=>DashboardPage()));
+              Navigator.push(context, MaterialPageRoute(builder:(context)=>MainPage()));
             },
             secondaryButtonText: "Ulangi Tes",
             secondaryButtonOnPressed: () {},
