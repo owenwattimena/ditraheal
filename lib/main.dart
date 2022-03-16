@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'pages/pages.dart';
+import 'utils/utils.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -9,7 +11,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       // Application name
-      title: 'App Trauma Healing',
+      translations: Language(),
+      locale: Locale("id"),
+      title: 'app_name'.tr,
       // Application theme data, you can set the colors for the application as
       // you want
       theme: ThemeData(

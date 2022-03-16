@@ -4,7 +4,7 @@ class InputSelectWidget extends StatelessWidget {
   final String? label;
   final String? hint;
   final String? value;
-  final List options;
+  final List<String> options;
   final double? top;
   final Function(String?) onChanged;
   const InputSelectWidget(

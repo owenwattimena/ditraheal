@@ -1,38 +1,22 @@
 part of '../pages.dart';
 
-class SignupPage extends StatefulWidget {
-  _SignupPageState createState() => _SignupPageState();
-}
-
-class _SignupPageState extends State<SignupPage> {
-  final AuthController authC = Get.put(AuthController());
-  TextEditingController namaController = new TextEditingController();
-  TextEditingController emailController = new TextEditingController();
-  TextEditingController noHpController = new TextEditingController();
-  DateTime? tanggalLahir;
-
-  String? _facebookValue;
-  List _folowers = [
-    "Tidak ada",
-    "1 s/d 1K",
-    "1K s/d 10K",
-    "10K s/d 100K",
-    "100K s/d 1Jt",
-    "Lebih dari 1Jt"
-  ];
-
-  GlobalKey<FormState> _key = GlobalKey<FormState>();
-
-  @override
-  void dispose() {
-    namaController.dispose();
-    emailController.dispose();
-    noHpController.dispose();
-    super.dispose();
-  }
-
+class SignupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final AuthController authC = Get.put(AuthController());
+
+    List<String> followers = [
+      "Tidak ada",
+      "1 s/d 1K",
+      "1K s/d 10K",
+      "10K s/d 100K",
+      "100K s/d 1Jt",
+      "Lebih dari 1Jt"
+    ];
+    var seen = Set<String>();
+    List<String> uniqueList =
+        followers.where((item) => seen.add(item)).toList();
+    GlobalKey<FormState> _key = GlobalKey<FormState>();
     double statusBarHeight = MediaQuery.of(context).padding.top;
     return Scaffold(
       body: Stack(
@@ -54,12 +38,11 @@ class _SignupPageState extends State<SignupPage> {
                     child: Column(
                       children: [
                         Text(
-                          "Aplikasi Intervensi Kepatuhan Digital Trauma Healing",
+                          "sign_up_title".tr,
                           style:
                               headlineTextStyle.copyWith(color: Colors.white),
                         ),
-                        Text(
-                            "\“Rasa sakit yang kamu rasakan hari ini akan menjadi kekuatan yang akan kamu rasakan besok.\”",
+                        Text("sign_up_quote".tr,
                             style:
                                 primaryTextStyle.copyWith(color: Colors.white))
                       ],
@@ -68,20 +51,20 @@ class _SignupPageState extends State<SignupPage> {
                   Container(
                     padding: EdgeInsets.fromLTRB(24, 43, 24, 36),
                     child: Text(
-                      "Ayo obati trauma mu!",
+                      "sign_up_heading".tr,
                       style: headlineTextStyle,
                       textAlign: TextAlign.center,
                     ),
                   ),
                   InputWidget(
-                    label: "Nama Lengkap",
-                    hintText: "Nama Lengkap",
+                    label: "name_tag".tr,
+                    hintText: "name_tag".tr,
                     textController: authC.namaController.value,
-                    onChanged: (_) => setState(() {}),
+                    onChanged: (_) {},
                     textCapitalization: TextCapitalization.sentences,
                     validator: (val) {
                       if (val.isEmpty) {
-                        return 'Tidak boleh kosong';
+                        return 'can_not_be_empty'.tr;
                       }
                     },
                   ),
@@ -100,66 +83,73 @@ class _SignupPageState extends State<SignupPage> {
                   //   },
                   // ),
                   InputWidget(
-                    label: "No HP",
-                    hintText: "No HP",
+                    label: "phone_number_tag".tr,
+                    hintText: "phone_number_tag".tr,
                     textController: authC.noHpController.value,
-                    onChanged: (_) => setState(() {}),
+                    onChanged: (_) {},
                     keyboardType: TextInputType.phone,
                     validator: (val) {
                       String pattern = r"^(^08)(\d{3,4}){2}\d{3,4}$";
                       RegExp regex = RegExp(pattern);
                       if (val.isEmpty)
-                        return 'Tidak boleh kosong';
-                      else if (!regex.hasMatch(val)) return 'No HP tidak valid';
+                        return 'can_not_be_empty'.tr;
+                      else if (!regex.hasMatch(val))
+                        return 'invalid_phone_number'.tr;
                     },
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(24, 0, 24, 4),
-                    child: Text("Tanggal Lahir"),
+                    child: Text("birth_date_tag".tr),
                   ),
                   InputDatetimeWidget(
-                    label: "Tanggal Lahir",
+                    label: "birth_date_tag".tr,
                     onDateSelected: (val) {
-                      setState(() {
-                        authC.setTanggalLahir = val;
-                      });
+                      authC.setTanggalLahir = val;
                     },
                     validator: (datetime) {
                       if (datetime == null) {
-                        return 'Tidak boleh kosong';
+                        return 'can_not_be_empty'.tr;
                       }
                     },
                   ),
                   SizedBox(height: 8),
                   InputWidget(
-                    label: "Alamat",
-                    hintText: "Alamat",
+                    label: "address_tag".tr,
+                    hintText: "address_tag".tr,
                     textController: authC.alamatController.value,
-                    onChanged: (_) => setState(() {}),
+                    onChanged: (_) {},
                     keyboardType: TextInputType.streetAddress,
+                    textCapitalization: TextCapitalization.sentences,
                     validator: (val) {
-                      if (val.isEmpty) return 'Tidak boleh kosong';
+                      if (val.isEmpty) return 'can_not_be_empty'.tr;
                     },
                   ),
-                  InputSelectWidget(
-                    top: 0,
-                    value: _facebookValue,
-                    label: "Follower Facebook",
-                    hint: "Jumlah Folllower Facebook",
-                    options: _folowers,
-                    onChanged: (val) => setState(() => _facebookValue = val),
+                  GetBuilder<AuthController>(
+                    // init: AuthController(),
+                    initState: (_) {},
+                    builder: (_) {
+                      return InputSelectWidget(
+                        top: 0,
+                        label: "fb_follower_tag".tr,
+                        hint: "input_fb_hint".tr,
+                        value: authC.facebookValue,
+                        options: uniqueList,
+                        onChanged: (val) => authC.facabookFollowers(val ?? ""),
+                      );
+                    },
                   ),
+
                   ButtonWidget(
                     margin: EdgeInsets.only(top: 24, left: 24, right: 24),
-                    text: "Selanjutnya",
+                    text: "next".tr,
                     onPressed: () {
                       if (_key.currentState!.validate())
                         Get.to(HobiSignupPage());
                     },
                   ),
                   OutlineButtonWidget(
-                    text: "Sudah Pernah Daftar?",
-                    onPressed: toSigninPage,
+                    text: "already_registered".tr,
+                    onPressed: () => Get.to(SigninPage()),
                   ),
                   SizedBox(height: 24)
                 ],
@@ -167,24 +157,6 @@ class _SignupPageState extends State<SignupPage> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  void gotoSosialSigninPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => SosialSignupPage(),
-      ),
-    );
-  }
-
-  void toSigninPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => SigninPage(),
       ),
     );
   }

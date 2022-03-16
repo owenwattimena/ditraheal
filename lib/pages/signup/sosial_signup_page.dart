@@ -6,7 +6,7 @@ class SosialSignupPage extends StatefulWidget {
 
 class _SosialSignupPageState extends State<SosialSignupPage> {
   String? _facebookValue, _instagramValue, _tiktokValue;
-  List _folowers = [
+  List<String> _folowers = [
     "Tidak ada",
     "1 s/d 1K",
     "1K s/d 10K",
