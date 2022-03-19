@@ -1,22 +1,18 @@
 part of '../pages.dart';
 
 class SignupPage extends StatelessWidget {
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
+  final AuthController authC = Get.put(AuthController());
+  // final List<String> followers = [
+  //   "Tidak ada",
+  //   "1 s/d 1K",
+  //   "1K s/d 10K",
+  //   "10K s/d 100K",
+  //   "100K s/d 1Jt",
+  //   "Lebih dari 1Jt"
+  // ];
   @override
   Widget build(BuildContext context) {
-    final AuthController authC = Get.put(AuthController());
-
-    List<String> followers = [
-      "Tidak ada",
-      "1 s/d 1K",
-      "1K s/d 10K",
-      "10K s/d 100K",
-      "100K s/d 1Jt",
-      "Lebih dari 1Jt"
-    ];
-    var seen = Set<String>();
-    List<String> uniqueList =
-        followers.where((item) => seen.add(item)).toList();
-    GlobalKey<FormState> _key = GlobalKey<FormState>();
     double statusBarHeight = MediaQuery.of(context).padding.top;
     return Scaffold(
       body: Stack(
@@ -60,42 +56,16 @@ class SignupPage extends StatelessWidget {
                     label: "name_tag".tr,
                     hintText: "name_tag".tr,
                     textController: authC.namaController.value,
-                    onChanged: (_) {},
-                    textCapitalization: TextCapitalization.sentences,
-                    validator: (val) {
-                      if (val.isEmpty) {
-                        return 'can_not_be_empty'.tr;
-                      }
-                    },
+                    // onChanged: (_) {},
+                    textCapitalization: TextCapitalization.words,
+                    validator: (val) => authC.nullCheck(val, label: "name_tag".tr),
                   ),
-                  // InputWidget(
-                  //   label: "Email",
-                  //   hintText: "Email",
-                  //   textController: authC.emailController.value,
-                  //   onChanged: (_) => setState(() {}),
-                  //   keyboardType: TextInputType.emailAddress,
-                  //   validator: (val) {
-                  //     String pattern = r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
-                  //     RegExp regex = RegExp(pattern);
-                  //     if (val.isEmpty)
-                  //       return 'Tidak boleh kosong';
-                  //     else if (!regex.hasMatch(val)) return 'Email tidak valid';
-                  //   },
-                  // ),
                   InputWidget(
                     label: "phone_number_tag".tr,
                     hintText: "phone_number_tag".tr,
-                    textController: authC.noHpController.value,
-                    onChanged: (_) {},
+                    textController: authC.noHpController.value,// onChanged: (_) {},
                     keyboardType: TextInputType.phone,
-                    validator: (val) {
-                      String pattern = r"^(^08)(\d{3,4}){2}\d{3,4}$";
-                      RegExp regex = RegExp(pattern);
-                      if (val.isEmpty)
-                        return 'can_not_be_empty'.tr;
-                      else if (!regex.hasMatch(val))
-                        return 'invalid_phone_number'.tr;
-                    },
+                    validator: (val) => authC.phoneValidate(val, label: "phone_number_tag".tr),
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(24, 0, 24, 4),
@@ -106,23 +76,16 @@ class SignupPage extends StatelessWidget {
                     onDateSelected: (val) {
                       authC.setTanggalLahir = val;
                     },
-                    validator: (datetime) {
-                      if (datetime == null) {
-                        return 'can_not_be_empty'.tr;
-                      }
-                    },
+                    validator: (datetime) => authC.dateValidate(datetime, label: "birth_date_tag".tr),
                   ),
                   SizedBox(height: 8),
                   InputWidget(
                     label: "address_tag".tr,
                     hintText: "address_tag".tr,
-                    textController: authC.alamatController.value,
-                    onChanged: (_) {},
+                    textController: authC.alamatController.value,// onChanged: (_) {},
                     keyboardType: TextInputType.streetAddress,
                     textCapitalization: TextCapitalization.sentences,
-                    validator: (val) {
-                      if (val.isEmpty) return 'can_not_be_empty'.tr;
-                    },
+                    validator: (val) => authC.nullCheck(val, label: "address_tag".tr),
                   ),
                   GetBuilder<AuthController>(
                     // init: AuthController(),
@@ -133,12 +96,12 @@ class SignupPage extends StatelessWidget {
                         label: "fb_follower_tag".tr,
                         hint: "input_fb_hint".tr,
                         value: authC.facebookValue,
-                        options: uniqueList,
+                        options: authC.fbFollowers,
+                        validator: (val) => authC.optionCheck(val),
                         onChanged: (val) => authC.facabookFollowers(val ?? ""),
                       );
                     },
                   ),
-
                   ButtonWidget(
                     margin: EdgeInsets.only(top: 24, left: 24, right: 24),
                     text: "next".tr,
@@ -161,3 +124,17 @@ class SignupPage extends StatelessWidget {
     );
   }
 }
+// InputWidget(
+//   label: "Email",
+//   hintText: "Email",
+//   textController: authC.emailController.value,
+//   onChanged: (_) => setState(() {}),
+//   keyboardType: TextInputType.emailAddress,
+//   validator: (val) {
+//     String pattern = r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
+//     RegExp regex = RegExp(pattern);
+//     if (val.isEmpty)
+//       return 'Tidak boleh kosong';
+//     else if (!regex.hasMatch(val)) return 'Email tidak valid';
+//   },
+// ),

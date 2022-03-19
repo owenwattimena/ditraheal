@@ -9,18 +9,16 @@ class InputDatetimeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 24),
-      padding: EdgeInsets.symmetric(horizontal: 11),
-      decoration: BoxDecoration(
-        color: greyColor,
-        borderRadius: BorderRadius.all(
-          Radius.circular(3),
-        ),
-      ),
+      
       child: DateTimeFormField(
         decoration: InputDecoration(
-          border: InputBorder.none,
-          // border: OutlineInputBorder(),
-          contentPadding: EdgeInsets.only(top: 15),
+          filled: true,
+          fillColor: greyColor,
+          contentPadding: EdgeInsets.only(top: 30, left: 11, right: 11),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(3),
+            borderSide: BorderSide.none,
+          ),
           hintText: 'Tanggal Lahir',
           hintStyle: TextStyle(color: Colors.black45),
           errorStyle: TextStyle(color: Colors.redAccent),

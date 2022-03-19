@@ -7,13 +7,15 @@ class InputSelectWidget extends StatelessWidget {
   final List<String> options;
   final double? top;
   final Function(String?) onChanged;
+  final Function(String?)? validator;
   const InputSelectWidget(
       {Key? key,
       this.label,
       this.hint,
       this.value,
       required this.options,
-      required this.onChanged, this.top})
+      required this.onChanged, this.top,
+      this.validator})
       : super(key: key);
 
   @override
@@ -27,20 +29,14 @@ class InputSelectWidget extends StatelessWidget {
           child: Text(label ?? ""),
         ),
         Container(
-          height: 50,
           margin: EdgeInsets.fromLTRB(24, 0, 24, 4),
-          padding: EdgeInsets.symmetric(horizontal: 11),
-          decoration: BoxDecoration(
-            color: greyColor,
-            borderRadius: BorderRadius.all(
-              Radius.circular(3),
-            ),
-          ),
-          child: DropdownButton<String>(
+          child: DropdownButtonFormField<String>(
             isExpanded: true,
             value: value,
-            underline: SizedBox(),
+            // underline: SizedBox(),
             hint: Text(hint ?? ""),
+            validator: (val) => (validator!= null) ? validator!(val) : null,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             items: options.map((val) {
               return DropdownMenuItem<String>(
                 child: Text(val),
@@ -48,6 +44,16 @@ class InputSelectWidget extends StatelessWidget {
               );
             }).toList(),
             onChanged: (val) => onChanged(val),
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: greyColor,
+              contentPadding: EdgeInsets.only(top: 25, left:11, right: 11),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(3),
+                borderSide: BorderSide.none,
+              ),
+              errorStyle: TextStyle(color: Colors.redAccent),
+            )
           ),
         ),
       ],
