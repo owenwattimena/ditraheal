@@ -69,8 +69,7 @@ class _AccountPageState extends State<AccountPage> {
             OutlineButtonWidget(
               text: "Logout",
               onPressed: (){
-                // authC.logout();
-                Get.offAllNamed("/");
+                Get.offAll(SignupPage());
               },
             ),
           ],

@@ -19,7 +19,10 @@ class Language extends Translations {
           "can_not_be_empty": "Tidak boleh kosong",
           "please_select_option": "Silakan pilih opsi",
           "invalid_phone_number": "No HP tidak valid",
-          "fb_followers" : "Tidak ada,1 s/d 1K,1K s/d 10K,10K s/d 100K,100K s/d 1Jt,Lebih dari 1Jt"
+          "fb_followers" : "Tidak ada,1 s/d 1K,1K s/d 10K,10K s/d 100K,100K s/d 1Jt,Lebih dari 1Jt",
+          "please_select_hobi" : "Silakan pilih hobi",
+          "request_token_timeout" : "Gagal mendapatkan token. Request timeout",
+          "check_internet_connection" : "Periksa koneksi internet anda."
         },
       };
 }

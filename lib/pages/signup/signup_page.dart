@@ -58,25 +58,26 @@ class SignupPage extends StatelessWidget {
                     textController: authC.namaController.value,
                     // onChanged: (_) {},
                     textCapitalization: TextCapitalization.words,
-                    validator: (val) => authC.nullCheck(val, label: "name_tag".tr),
+                    validator: (val) => Validate.notNull(val, label: "name_tag".tr),
                   ),
                   InputWidget(
                     label: "phone_number_tag".tr,
                     hintText: "phone_number_tag".tr,
                     textController: authC.noHpController.value,// onChanged: (_) {},
                     keyboardType: TextInputType.phone,
-                    validator: (val) => authC.phoneValidate(val, label: "phone_number_tag".tr),
+                    validator: (val) => Validate.phoneNotNull(val, label: "phone_number_tag".tr),
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(24, 0, 24, 4),
                     child: Text("birth_date_tag".tr),
                   ),
                   InputDatetimeWidget(
+                    initialDate: authC.tanggalLahir.value,
                     label: "birth_date_tag".tr,
                     onDateSelected: (val) {
                       authC.setTanggalLahir = val;
                     },
-                    validator: (datetime) => authC.dateValidate(datetime, label: "birth_date_tag".tr),
+                    validator: (datetime) => Validate.dateValidate(datetime, label: "birth_date_tag".tr),
                   ),
                   SizedBox(height: 8),
                   InputWidget(
@@ -85,7 +86,7 @@ class SignupPage extends StatelessWidget {
                     textController: authC.alamatController.value,// onChanged: (_) {},
                     keyboardType: TextInputType.streetAddress,
                     textCapitalization: TextCapitalization.sentences,
-                    validator: (val) => authC.nullCheck(val, label: "address_tag".tr),
+                    validator: (val) => Validate.notNull(val, label: "address_tag".tr),
                   ),
                   GetBuilder<AuthController>(
                     // init: AuthController(),
@@ -97,7 +98,7 @@ class SignupPage extends StatelessWidget {
                         hint: "input_fb_hint".tr,
                         value: authC.facebookValue,
                         options: authC.fbFollowers,
-                        validator: (val) => authC.optionCheck(val),
+                        validator: (val) => Validate.dropdown(val),
                         onChanged: (val) => authC.facabookFollowers(val ?? ""),
                       );
                     },

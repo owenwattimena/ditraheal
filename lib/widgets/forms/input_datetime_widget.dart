@@ -4,13 +4,15 @@ class InputDatetimeWidget extends StatelessWidget {
   final String? label;
   final Function(DateTime)? onDateSelected;
   final Function(DateTime?)? validator;
-  InputDatetimeWidget({this.label, this.onDateSelected, this.validator});
+  final DateTime? initialDate;
+  InputDatetimeWidget({this.label, this.onDateSelected, this.validator, this.initialDate});
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 24),
       
       child: DateTimeFormField(
+        initialDate: initialDate,
         decoration: InputDecoration(
           filled: true,
           fillColor: greyColor,

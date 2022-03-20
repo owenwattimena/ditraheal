@@ -4,6 +4,7 @@ import "../shared/shared.dart";
 import "../widgets/widgets.dart";
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:get/get.dart';
+import "../utils/utils.dart";
 
 part 'signup/signup_page.dart';
 part 'signup/sosial_signup_page.dart';
