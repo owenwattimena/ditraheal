@@ -1,1 +1,1 @@
-part 'hobi.dart';
+part 'hobby.dart';

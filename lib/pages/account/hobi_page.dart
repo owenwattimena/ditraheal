@@ -21,7 +21,7 @@ class _HobiPageState extends State<HobiPage> {
             height: 24,
           ),
           Column(
-            children: authC.listHobi.map((hobi) {
+            children: authC.listHobby.map((hobi) {
               return Obx(
                 () => SelectCardWidget(
                   margin: EdgeInsets.only(left: 24, right: 24, bottom: 12),

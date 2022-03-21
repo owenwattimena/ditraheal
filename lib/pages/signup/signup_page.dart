@@ -107,6 +107,7 @@ class SignupPage extends StatelessWidget {
                     margin: EdgeInsets.only(top: 24, left: 24, right: 24),
                     text: "next".tr,
                     onPressed: () {
+                      // authC.getToken();
                       if (_key.currentState!.validate())
                         Get.to(HobiSignupPage());
                     },

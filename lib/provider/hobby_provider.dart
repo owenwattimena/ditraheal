@@ -2,42 +2,37 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:helloworld/models/api_return_value.dart';
+import 'package:helloworld/models/models.dart';
 
 import '../utils/constants.dart';
 // import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-
-class AuthProvider {
-  /// Fetch API TOKEN data from API
-  Future<ApiReturnValue> fetchToken(
-      {String username = "adm", String password = "jok742n"}) async {
+class HobbyProvider{
+  Future<ApiReturnValue<List<Hobby>>> fetchHobbies({required String token}) async
+  {
     try {
-      var url = Uri.parse(LOGIN_URL);
-      Map<String, String> body = {
-        'username': username,
-        'password': password,
-      };
+      var url = Uri.parse(HOBBIES_URL);
       http.Client client = http.Client();
       var response = await client
-          .post(
+          .get(
             url,
             headers: {
+              "Authorization" : "Bearer $token",
               "Content-Type": "application/json; charset=UTF-8",
-              "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Credentials":
-                  "true", // Required for cookies, authorization headers with HTTPS
-              "Access-Control-Allow-Headers":
-                  "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
-              "Access-Control-Allow-Methods": "POST, OPTIONS"
             },
-            body: json.encode(body),
           )
           .timeout(Duration(seconds: 10));
       var jsonResponse = json.decode(response.body);
       if (response.statusCode == 200) {
+        List<Hobby> hobbyList = [];
+        for (var item in jsonResponse) {
+          Hobby hobi = Hobby.fromJson(item);
+          hobbyList.add(hobi);
+        }
+
         return ApiReturnValue(
-          data: jsonResponse,
+          data: hobbyList,
           message: "success",
           statusCode: 200,
         );

@@ -24,11 +24,11 @@ class _HobiSignupPageState extends State<HobiSignupPage> {
                 SizedBox(
                   height: 24,
                 ),
-                Column(
-                  children: authC.listHobi.map(
-                    (hobi) {
-                      return Obx(
-                        () => SelectCardWidget(
+                Obx(
+                  () => Column(
+                    children: authC.listHobby.map(
+                      (hobi) {
+                        return SelectCardWidget(
                           margin:
                               EdgeInsets.only(left: 24, right: 24, bottom: 12),
                           title: hobi.title,
@@ -38,10 +38,10 @@ class _HobiSignupPageState extends State<HobiSignupPage> {
                           onTap: (val) {
                             authC.setHobi = hobi.id;
                           },
-                        ),
-                      );
-                    },
-                  ).toList(),
+                        );
+                      },
+                    ).toList(),
+                  ),
                 ),
                 ButtonWidget(
                   margin: EdgeInsets.only(top: 24, left: 24, right: 24),
