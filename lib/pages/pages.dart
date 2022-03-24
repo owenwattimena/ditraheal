@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:helloworld/controllers/auth_controller.dart';
+import '../controllers/auth_controller.dart';
 import "../shared/shared.dart";
 import "../widgets/widgets.dart";
 import 'package:auto_size_text/auto_size_text.dart';

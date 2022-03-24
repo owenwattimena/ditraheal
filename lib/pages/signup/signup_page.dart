@@ -108,8 +108,9 @@ class SignupPage extends StatelessWidget {
                     text: "next".tr,
                     onPressed: () {
                       // authC.getToken();
-                      if (_key.currentState!.validate())
-                        Get.to(HobiSignupPage());
+                      authC.goToHobySignupPage();
+                      // if (_key.currentState!.validate())
+                        // Get.to(HobiSignupPage());
                     },
                   ),
                   OutlineButtonWidget(

@@ -11,3 +11,31 @@ Color accentColor = Color(0xff311D69);
 Color lightGreenColor = Color(0xff9EFFDA);
 Color darkGreenColor = Color(0xff39B97B);
 
+Future dialog({required String title, required String description, required String btnTitle, required Function() onPressed}) {
+  return Get.defaultDialog(
+    title: '$title',
+    titlePadding: EdgeInsets.all(18),
+    titleStyle: primaryTextBoldStyle.copyWith(fontSize: 14),
+    content: Container(
+      decoration: BoxDecoration(
+        color: greyColor,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      margin: EdgeInsets.symmetric(horizontal: 10),
+      padding: EdgeInsets.symmetric(horizontal: 9, vertical: 16),
+      child: Text(
+        "$description",
+        style: primaryTextStyle,
+      ),
+    ),
+    actions: [
+      ButtonWidget(
+        margin: EdgeInsets.only(top: 10, bottom: 8),
+        text: "$btnTitle",
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        onPressed: () => onPressed(),
+      )
+    ],
+    barrierDismissible: false,
+  );
+}

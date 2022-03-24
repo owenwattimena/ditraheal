@@ -1,12 +1,19 @@
 import 'dart:async';
 // import 'dart:io';
-
+// import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:ditraheal/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import "../utils/utils.dart";
+
 // import 'package:get/get_connect/sockets/src/sockets_html.dart';
-import 'package:helloworld/provider/auth_provider.dart';
-import 'package:helloworld/provider/hobby_provider.dart';
+import '../provider/auth_provider.dart';
+import '../provider/hobby_provider.dart';
 import '../models/models.dart';
+import '../shared/shared.dart';
+import '../pages/pages.dart';
 
 class AuthController extends GetxController {
   RxString token = "".obs;
@@ -19,6 +26,8 @@ class AuthController extends GetxController {
   Rx<DateTime?> tanggalLahir = Rx<DateTime?>(null);
   RxInt hobi = RxInt(0);
   String? facebookValue;
+  bool internetStatuserror = false;
+  Rx<User> user = Rx<User>(User());
 
   RxList<Hobby> listHobby = <Hobby>[
     // Hobby(1, "assets/images/seni_hobi_icon.png", "Seni"),
@@ -29,29 +38,107 @@ class AuthController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getToken();
+    // getToken();
+    //checkConnectivity();
   }
 
+  /// Listen internet status
+  void checkConnectivity() {
+    // Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+    //   if (result == ConnectivityResult.none) {
+    //     internetStatuserror = true;
+    // Get.bottomSheet(
+    //   Container(
+    //     child: Column(
+    //       children: [
+    //         Row(children: [
+    //           Icon(Icons.wifi_off),
+    //           Text(
+    //             "Internet tidak tersedia...",
+    //             style: primaryTextBoldStyle.copyWith(fontSize: 16),
+    //           )
+    //         ]),
+    //         Text(
+    //           "Cek ulang koneksi internet dan ketersediaan paket data Anda, ya.",
+    //           style: primaryTextStyle,
+    //         )
+    //       ],
+    //     ),
+    //   ),
+    // );
+    //   }
+    // });
+    //-----------------------------------
+    // dialog(
+    //   title: "internet_error".tr,
+    //   description: "check_internet_connection".tr,
+    //   btnTitle: "ok".tr,
+    //   onPressed: () {
+    //     if (internetStatuserror == false) {
+    //       Get.back();
+    //     }
+    //   },
+    // );
+    //   } else {
+    //     if (internetStatuserror) {
+    //       internetStatuserror = false;
+    //       Get.back();
+    //     }
+    //   }
+
+    Get.defaultDialog(
+    title: "internet_error".tr,
+    titlePadding: EdgeInsets.all(18),
+    titleStyle: primaryTextBoldStyle.copyWith(fontSize: 14),
+    content: Container(
+      decoration: BoxDecoration(
+        color: greyColor,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      margin: EdgeInsets.symmetric(horizontal: 10),
+      padding: EdgeInsets.symmetric(horizontal: 9, vertical: 16),
+      child: Text(
+         "check_internet_connection".tr,
+        style: primaryTextStyle,
+      ),
+    ),
+    actions: [
+      ButtonWidget(
+        margin: EdgeInsets.only(top: 10, bottom: 8),
+        text: "OK",
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        onPressed: () {
+          if (internetStatuserror == false) {
+          Get.back();
+        }
+        },
+      )
+    ],
+    barrierDismissible: false,
+  );
+  }
+
+  /// get auth Token from API
   Future<void> getToken() async {
     final result = await authProvider.fetchToken();
     if (result.statusCode == 200) {
       token.value = result.data["token"];
+      print(token.value);
       getHobbies();
-    } else{
+    } else {
       getToken();
     }
   }
 
-  Future<void> getHobbies()async{
+  // get list of hobbies from API
+  Future<void> getHobbies() async {
     final result = await hobbyProvider.fetchHobbies(token: token.value);
-    print(result.message);
     if (result.statusCode == 200) {
       listHobby.value = result.data!;
-    } else{
+    } else {
       getHobbies();
     }
   }
-
 
   /// get list of fb followers from [Language] class
   List<String> get fbFollowers => "fb_followers".tr.split(",");
@@ -70,5 +157,47 @@ class AuthController extends GetxController {
   void facabookFollowers(String value) {
     facebookValue = value;
     update();
+  }
+
+  void goToHobySignupPage() {
+    checkConnectivity();
+return;
+    if (facebookValue == "Tidak ada") {
+      Get.showSnackbar(GetSnackBar(
+        message: "follower_minimum".tr,
+        duration: Duration(seconds: 2),
+      ));
+      return;
+    }
+    user.update((_) {
+      user.value = new User(
+        name: namaController.value.text,
+        phoneNumber: noHpController.value.text,
+        birthDate: DateFormat('yyyy-MM-dd').format(tanggalLahir.value!),
+        address: alamatController.value.text,
+        follower: int.parse(facebookValue!),
+      );
+    });
+    Get.to(HobiSignupPage());
+  }
+
+  void checkHobby() {
+    String? message = Validate.select(hobi.value);
+    if (message != null) {
+      Get.showSnackbar(GetSnackBar(
+        message: message,
+        duration: Duration(seconds: 2),
+      ));
+    } else {
+      user.update((_) {
+        user.value = user.value.copyWith(hobby: hobi.value);
+      });
+      doSignup();
+    }
+  }
+
+  // do signup
+  void doSignup() {
+    Get.to(LandingTraumaQuiz());
   }
 }

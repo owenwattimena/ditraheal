@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:helloworld/models/api_return_value.dart';
-import 'package:helloworld/models/models.dart';
+import '../models/api_return_value.dart';
+import '../models/models.dart';
 
 import '../utils/constants.dart';
 // import 'package:get/get.dart';

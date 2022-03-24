@@ -10,10 +10,7 @@ class Dashboard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        HeaderWithCard(
-            onAccountTap: () => Get.to(AccountPage()),
-            user: authC.namaController.value.text,
-            cardWidth: (deviceWidth / 2) - 24 - 6),
+        HeaderWithCard(onAccountTap: () => Get.to(AccountPage()), user: authC.user.value.name, cardWidth: (deviceWidth / 2) - 24 - 6),
         SizedBox(height: 70),
         Container(
           decoration: BoxDecoration(
@@ -25,9 +22,8 @@ class Dashboard extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 24),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: Text(
-            "Mr. Survivor anda berada pada level trauma rendah. Anda tidak perlu mengikuti pemulihan trauma. ",
-            style:
-                primaryTextStyle.copyWith(color: darkGreenColor, fontSize: 12),
+            "low_level_trauma_alert".trParams({'user': authC.user.value.name}),
+            style: primaryTextStyle.copyWith(color: darkGreenColor, fontSize: 12),
           ),
         ),
         SizedBox(height: 12),
