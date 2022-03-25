@@ -25,4 +25,28 @@ class User {
         address: address ?? this.address,
         name: name ?? this.name,
       );
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'],
+      follower: json['follower'],
+      hobby: json['hobi'],
+      phoneNumber: json['no_hp'],
+      birthDate: json['tgl_lahir'],
+      address: json['alamat'],
+      name: json['name'],
+    );
+  }
+
+  Map toMap() {
+    return {
+      "id": this.id,
+      "name": this.name,
+      "no_hp": this.phoneNumber,
+      "tgl_lahir": this.birthDate,
+      "alamat": this.address,
+      "follower": this.follower,
+      "hobi": this.hobby,
+    };
+  }
 }

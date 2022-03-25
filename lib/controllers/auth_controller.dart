@@ -1,7 +1,7 @@
 import 'dart:async';
 // import 'dart:io';
 // import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:ditraheal/widgets/widgets.dart';
+// import 'package:ditraheal/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -79,56 +79,6 @@ class AuthController extends GetxController {
       isDismissible: false,
       enableDrag: false,
     );
-    //   }
-    // });
-    //-----------------------------------
-    // dialog(
-    //   title: "internet_error".tr,
-    //   description: "check_internet_connection".tr,
-    //   btnTitle: "ok".tr,
-    //   onPressed: () {
-    //     if (internetStatuserror == false) {
-    //       Get.back();
-    //     }
-    //   },
-    // );
-    //   } else {
-    //     if (internetStatuserror) {
-    //       internetStatuserror = false;
-    //       Get.back();
-    //     }
-    //   }
-
-    // Get.defaultDialog(
-    //   title: "internet_error".tr,
-    //   titlePadding: EdgeInsets.all(18),
-    //   titleStyle: primaryTextBoldStyle.copyWith(fontSize: 14),
-    //   content: Container(
-    //     decoration: BoxDecoration(
-    //       color: greyColor,
-    //       borderRadius: BorderRadius.circular(12),
-    //     ),
-    //     margin: EdgeInsets.symmetric(horizontal: 10),
-    //     padding: EdgeInsets.symmetric(horizontal: 9, vertical: 16),
-    //     child: Text(
-    //       "check_internet_connection".tr,
-    //       style: primaryTextStyle,
-    //     ),
-    //   ),
-    //   actions: [
-    //     ButtonWidget(
-    //       margin: EdgeInsets.only(top: 10, bottom: 8),
-    //       text: "OK",
-    //       padding: EdgeInsets.symmetric(horizontal: 10),
-    //       onPressed: () {
-    //         if (internetStatuserror == false) {
-    //         Get.back();
-    //       }
-    //       },
-    //     )
-    //   ],
-    //   barrierDismissible: false,
-    // );
   }
 
   /// get auth Token from API
@@ -210,7 +160,19 @@ class AuthController extends GetxController {
   }
 
   // do signup
-  void doSignup() {
-    Get.to(LandingTraumaQuiz());
+  Future<void> doSignup() async {
+    final result = await authProvider.doSignup(user.value.toMap(), token: token.value);
+    if (result.statusCode == REQUSET_SUCCESS) {
+      final userData = result.data[0]["data"];
+      user.update((val) {
+        user.value = User.fromJson(userData);
+      });
+      Get.to(LandingTraumaQuiz());
+    } else {
+      Get.showSnackbar(GetSnackBar(
+        message: "something_gone_wrong".tr,
+        duration: Duration(seconds: 2),
+      ));
+    }
   }
 }

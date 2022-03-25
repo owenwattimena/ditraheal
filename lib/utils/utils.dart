@@ -3,3 +3,4 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 part "language.dart";
 part "validate.dart";
+part "constants.dart";

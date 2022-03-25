@@ -40,15 +40,8 @@ class Provider {
   }
 
   static Future<ApiReturnValue> requestPost(String url, Map body, {String? token}) async {
-    Map<String, String> headers = {
-      "Content-Type": "application/json; charset=UTF-8",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Credentials": "true", // Required for cookies, authorization headers with HTTPS
-      "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
-      "Access-Control-Allow-Methods": "POST, OPTIONS"
-    };
     if (token != null) {
-      headers["Authorization"] = "Bearer $token";
+      Provider.headers["Authorization"] = "Bearer $token";
     }
     return Provider.request(() async {
       var uri = Uri.parse(url);
@@ -56,7 +49,7 @@ class Provider {
       var response = await client
           .post(
             uri,
-            headers: headers,
+            headers: Provider.headers,
             body: json.encode(body),
           )
           .timeout(Duration(seconds: 10));
@@ -81,7 +74,6 @@ class Provider {
   static Future<ApiReturnValue> requestGet(String url, {String? token}) async {
     if (token != null) {
       Provider.headers["Authorization"] = "Bearer $token";
-      print(Provider.headers);
     }
     return Provider.request(() async {
       var uri = Uri.parse(url);
