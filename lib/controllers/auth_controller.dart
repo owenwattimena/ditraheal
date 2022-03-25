@@ -147,6 +147,7 @@ class AuthController extends GetxController {
   // get list of hobbies from API
   Future<void> getHobbies() async {
     final result = await hobbyProvider.fetchHobbies(token: token.value);
+    print(result.message);
     if (result.statusCode == 200) {
       listHobby.value = result.data!;
     } else {

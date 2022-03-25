@@ -81,6 +81,7 @@ class Provider {
   static Future<ApiReturnValue> requestGet(String url, {String? token}) async {
     if (token != null) {
       Provider.headers["Authorization"] = "Bearer $token";
+      print(Provider.headers);
     }
     return Provider.request(() async {
       var uri = Uri.parse(url);
