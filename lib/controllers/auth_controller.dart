@@ -38,7 +38,7 @@ class AuthController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    getToken();
+    // getToken();
     // checkConnectivity();
   }
 
