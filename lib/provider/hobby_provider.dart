@@ -13,7 +13,7 @@ import 'provider.dart';
 
 class HobbyProvider {
   Future<ApiReturnValue> fetchHobbies({required String token}) async {
-    return Provider.requestGet(LOGIN_URL, token: token);
+    return Provider.requestGet(HOBBIES_URL, token: token);
 
     // try {
     //   var url = Uri.parse(HOBBIES_URL);
