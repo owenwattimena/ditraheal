@@ -44,8 +44,8 @@ class AuthController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    // getToken();
-    checkConnectivity();
+    getToken();
+    // checkConnectivity();
   }
 
   /// Listen internet status
@@ -137,9 +137,9 @@ class AuthController extends GetxController {
     if (result.statusCode == 200) {
       token.value = result.data["token"];
       print(token.value);
-      getHobbies();
+      // getHobbies();
     } else {
-      getToken();
+      // getToken();
     }
   }
 
