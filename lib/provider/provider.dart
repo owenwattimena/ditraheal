@@ -22,7 +22,7 @@ class Provider {
         statusCode: 400,
       );
     } catch (e) {
-      // print("catch : $e");
+      print("catch : $e");
       result = ApiReturnValue(
         data: null,
         message: "error. ${e.toString()}",
