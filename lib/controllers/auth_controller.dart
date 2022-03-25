@@ -134,10 +134,10 @@ class AuthController extends GetxController {
   /// get auth Token from API
   Future<void> getToken() async {
     final result = await authProvider.fetchToken();
+    print(result.message);
+    print(result.statusCode);
     if (result.statusCode == 200) {
       token.value = result.data["token"];
-      print(result.message);
-      print(result.statusCode);
       // getHobbies();
     } else {
       // getToken();
