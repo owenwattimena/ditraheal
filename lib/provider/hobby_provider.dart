@@ -2,19 +2,28 @@ import 'dart:async';
 // import 'dart:io';
 
 import '../models/api_return_value.dart';
-// import '../models/models.dart';
+import '../models/models.dart';
 
 import '../utils/constants.dart';
 import 'provider.dart';
 
 // import 'package:get/get.dart';
-// import 'dart:convert';
+import 'dart:convert';
 // import 'package:http/http.dart' as http;
 
 class HobbyProvider {
   Future<ApiReturnValue> fetchHobbies({required String token}) async {
-    return Provider.requestGet(HOBBIES_URL, token: token);
-
+    ApiReturnValue result = await Provider.requestGet(HOBBIES_URL, token: token);
+    if (result.statusCode == REQUSET_SUCCESS) {
+      List<Hobby> hobbyList = [];
+      for (var item in result.data) {
+        Hobby hobi = Hobby.fromJson(item);
+        hobbyList.add(hobi);
+      }
+      result.data = hobbyList;
+      return result;
+    }
+    return result;
     // try {
     //   var url = Uri.parse(HOBBIES_URL);
     //   http.Client client = http.Client();
