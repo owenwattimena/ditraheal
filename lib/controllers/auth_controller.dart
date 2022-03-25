@@ -76,6 +76,7 @@ class AuthController extends GetxController {
         ),
       ),
       backgroundColor: Colors.white,
+      isDismissible: false,
     );
     //   }
     // });
