@@ -174,8 +174,6 @@ class AuthController extends GetxController {
   }
 
   void goToHobySignupPage() {
-    checkConnectivity();
-    return;
     if (facebookValue == "Tidak ada") {
       Get.showSnackbar(GetSnackBar(
         message: "follower_minimum".tr,
