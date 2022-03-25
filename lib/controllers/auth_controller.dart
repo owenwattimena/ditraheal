@@ -36,10 +36,16 @@ class AuthController extends GetxController {
   ].obs;
 
   @override
+  void onInit() {
+    super.onInit();
+    print("ON INIT");
+  }
+
+  @override
   void onReady() {
     super.onReady();
     // getToken();
-    // checkConnectivity();
+    checkConnectivity();
   }
 
   /// Listen internet status
