@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 class AuthProvider {
   /// Fetch API TOKEN data from API
   Future<ApiReturnValue> fetchToken({String username = "adm", String password = "jok742n"}) async {
+    print("fetch token");
     return Provider.request(() async {
       var url = Uri.parse(LOGIN_URL);
       Map<String, String> body = {
@@ -32,6 +33,7 @@ class AuthProvider {
           )
           .timeout(Duration(seconds: 10));
       var jsonResponse = json.decode(response.body);
+      print(jsonResponse);
       if (response.statusCode == 200) {
         return ApiReturnValue(
           data: jsonResponse,
