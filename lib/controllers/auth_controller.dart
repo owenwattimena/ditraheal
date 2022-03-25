@@ -136,7 +136,8 @@ class AuthController extends GetxController {
     final result = await authProvider.fetchToken();
     if (result.statusCode == 200) {
       token.value = result.data["token"];
-      print(token.value);
+      print(result.message);
+      print(result.statusCode);
       // getHobbies();
     } else {
       // getToken();

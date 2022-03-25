@@ -35,14 +35,14 @@ class AuthProvider {
       var jsonResponse = json.decode(response.body);
       print(jsonResponse);
       if (response.statusCode == 200) {
-        print("success");
+        // print("success");
         return ApiReturnValue(
           data: jsonResponse,
           message: "success",
           statusCode: 200,
         );
       } else {
-        print("error");
+        // print("error");
         return ApiReturnValue(
           data: jsonResponse,
           message: "error",
