@@ -36,10 +36,10 @@ class AuthController extends GetxController {
   ].obs;
 
   @override
-  void onInit() {
-    super.onInit();
-    // getToken();
-    //checkConnectivity();
+  void onReady() {
+    super.onReady();
+    getToken();
+    // checkConnectivity();
   }
 
   /// Listen internet status
@@ -47,25 +47,25 @@ class AuthController extends GetxController {
     // Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
     //   if (result == ConnectivityResult.none) {
     //     internetStatuserror = true;
-    // Get.bottomSheet(
-    //   Container(
-    //     child: Column(
-    //       children: [
-    //         Row(children: [
-    //           Icon(Icons.wifi_off),
-    //           Text(
-    //             "Internet tidak tersedia...",
-    //             style: primaryTextBoldStyle.copyWith(fontSize: 16),
-    //           )
-    //         ]),
-    //         Text(
-    //           "Cek ulang koneksi internet dan ketersediaan paket data Anda, ya.",
-    //           style: primaryTextStyle,
-    //         )
-    //       ],
-    //     ),
-    //   ),
-    // );
+    Get.bottomSheet(
+      Container(
+        child: Column(
+          children: [
+            Row(children: [
+              Icon(Icons.wifi_off),
+              Text(
+                "Internet tidak tersedia...",
+                style: primaryTextBoldStyle.copyWith(fontSize: 16),
+              )
+            ]),
+            Text(
+              "Cek ulang koneksi internet dan ketersediaan paket data Anda, ya.",
+              style: primaryTextStyle,
+            )
+          ],
+        ),
+      ),
+    );
     //   }
     // });
     //-----------------------------------
@@ -86,36 +86,36 @@ class AuthController extends GetxController {
     //     }
     //   }
 
-    Get.defaultDialog(
-    title: "internet_error".tr,
-    titlePadding: EdgeInsets.all(18),
-    titleStyle: primaryTextBoldStyle.copyWith(fontSize: 14),
-    content: Container(
-      decoration: BoxDecoration(
-        color: greyColor,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      margin: EdgeInsets.symmetric(horizontal: 10),
-      padding: EdgeInsets.symmetric(horizontal: 9, vertical: 16),
-      child: Text(
-         "check_internet_connection".tr,
-        style: primaryTextStyle,
-      ),
-    ),
-    actions: [
-      ButtonWidget(
-        margin: EdgeInsets.only(top: 10, bottom: 8),
-        text: "OK",
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        onPressed: () {
-          if (internetStatuserror == false) {
-          Get.back();
-        }
-        },
-      )
-    ],
-    barrierDismissible: false,
-  );
+    // Get.defaultDialog(
+    //   title: "internet_error".tr,
+    //   titlePadding: EdgeInsets.all(18),
+    //   titleStyle: primaryTextBoldStyle.copyWith(fontSize: 14),
+    //   content: Container(
+    //     decoration: BoxDecoration(
+    //       color: greyColor,
+    //       borderRadius: BorderRadius.circular(12),
+    //     ),
+    //     margin: EdgeInsets.symmetric(horizontal: 10),
+    //     padding: EdgeInsets.symmetric(horizontal: 9, vertical: 16),
+    //     child: Text(
+    //       "check_internet_connection".tr,
+    //       style: primaryTextStyle,
+    //     ),
+    //   ),
+    //   actions: [
+    //     ButtonWidget(
+    //       margin: EdgeInsets.only(top: 10, bottom: 8),
+    //       text: "OK",
+    //       padding: EdgeInsets.symmetric(horizontal: 10),
+    //       onPressed: () {
+    //         if (internetStatuserror == false) {
+    //         Get.back();
+    //       }
+    //       },
+    //     )
+    //   ],
+    //   barrierDismissible: false,
+    // );
   }
 
   /// get auth Token from API
@@ -161,7 +161,7 @@ class AuthController extends GetxController {
 
   void goToHobySignupPage() {
     checkConnectivity();
-return;
+    return;
     if (facebookValue == "Tidak ada") {
       Get.showSnackbar(GetSnackBar(
         message: "follower_minimum".tr,
