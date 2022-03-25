@@ -60,7 +60,8 @@ class AuthController extends GetxController {
         child: Column(
           children: [
             Row(children: [
-              Icon(Icons.wifi_off),
+              Icon(Icons.wifi_off, size: 40),
+              SizedBox(width: 12),
               Text(
                 "Internet tidak tersedia...",
                 style: primaryTextBoldStyle.copyWith(fontSize: 16),
