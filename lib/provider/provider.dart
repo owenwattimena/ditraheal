@@ -3,10 +3,10 @@ import 'dart:io';
 import '../models/api_return_value.dart';
 
 class Provider {
-  static Future<ApiReturnValue> request(Function doSomething) async {
+  static Future<ApiReturnValue> request(Future<ApiReturnValue> Function() doSomething) async {
     ApiReturnValue result;
     try {
-      result = doSomething as ApiReturnValue;
+      result = await doSomething();
     } on TimeoutException {
       // print("time out");
       result = ApiReturnValue(
