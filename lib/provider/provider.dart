@@ -7,18 +7,23 @@ class Provider {
     try {
       return doSomething as ApiReturnValue;
     } on TimeoutException {
+      print("time out");
       return ApiReturnValue(
         data: null,
         message: "error. Request timeout",
         statusCode: 408,
       );
     } on SocketException {
+      print("socket");
+
       return ApiReturnValue(
         data: null,
         message: "error. SocketException",
         statusCode: 400,
       );
     } catch (e) {
+      print("catch : $e");
+
       return ApiReturnValue(
         data: null,
         message: "error. ${e.toString()}",
