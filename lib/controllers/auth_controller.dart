@@ -66,6 +66,7 @@ class AuthController extends GetxController {
                 style: primaryTextBoldStyle.copyWith(fontSize: 16),
               )
             ]),
+            SizedBox(height: 12),
             Text(
               "Cek ulang koneksi internet dan ketersediaan paket data Anda, ya.",
               style: primaryTextStyle,
