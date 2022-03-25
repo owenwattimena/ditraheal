@@ -55,6 +55,7 @@ class AuthController extends GetxController {
     //     internetStatuserror = true;
     Get.bottomSheet(
       Container(
+        height: 150,
         child: Column(
           children: [
             Row(children: [
