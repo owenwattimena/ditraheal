@@ -2,6 +2,7 @@ import 'dart:async';
 // import 'dart:io';
 // import 'package:connectivity_plus/connectivity_plus.dart';
 // import 'package:ditraheal/widgets/widgets.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,24 +17,21 @@ import '../shared/shared.dart';
 import '../pages/pages.dart';
 
 class AuthController extends GetxController {
-  RxString token = "".obs;
+  final storage = GetStorage();
   final AuthProvider authProvider = AuthProvider();
   final HobbyProvider hobbyProvider = HobbyProvider();
+  RxString token = "".obs;
   Rx<TextEditingController> namaController = new TextEditingController().obs;
   Rx<TextEditingController> emailController = new TextEditingController().obs;
   Rx<TextEditingController> noHpController = new TextEditingController().obs;
   Rx<TextEditingController> alamatController = new TextEditingController().obs;
   Rx<DateTime?> tanggalLahir = Rx<DateTime?>(null);
   RxInt hobi = RxInt(0);
+  Rx<User> user = Rx<User>(User());
+  RxList<Hobby> listHobby = <Hobby>[].obs;
+  RxBool onLoading = false.obs;
   String? facebookValue;
   bool internetStatuserror = false;
-  Rx<User> user = Rx<User>(User());
-
-  RxList<Hobby> listHobby = <Hobby>[
-    // Hobby(1, "assets/images/seni_hobi_icon.png", "Seni"),
-    // Hobby(2, "assets/images/baca_hobi_icon.png", "Baca"),
-    // Hobby(3, "assets/images/olahraga_hobi_icon.png", "Olahraga"),
-  ].obs;
 
   @override
   void onInit() {
@@ -88,6 +86,7 @@ class AuthController extends GetxController {
     print(result.statusCode);
     if (result.statusCode == 200) {
       token.value = result.data["token"];
+      storage.write("token", token.value);
       getHobbies();
     } else {
       getToken();
@@ -161,12 +160,14 @@ class AuthController extends GetxController {
 
   // do signup
   Future<void> doSignup() async {
+    onLoading.value = true;
     final result = await authProvider.doSignup(user.value.toMap(), token: token.value);
     if (result.statusCode == REQUSET_SUCCESS) {
       final userData = result.data[0]["data"];
       user.update((val) {
         user.value = User.fromJson(userData);
       });
+      storage.write("user", user.value);
       Get.to(LandingTraumaQuiz());
     } else {
       Get.showSnackbar(GetSnackBar(
@@ -174,5 +175,6 @@ class AuthController extends GetxController {
         duration: Duration(seconds: 2),
       ));
     }
+    onLoading.value = false;
   }
 }

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:get/get.dart';
 import 'pages/pages.dart';
 import 'utils/utils.dart';
 import 'widgets/widgets.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  await GetStorage.init();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -27,7 +31,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 
 // class Test extends StatelessWidget {
 //   const Test({ Key? key }) : super(key: key);

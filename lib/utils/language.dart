@@ -27,7 +27,8 @@ class Language extends Translations {
           "internet_error": "Internet Error",
           "ok": "OK",
           "follower_minimum": "Follower harus lebih atau sama dengan 10",
-          "something_gone_wrong": "Ops..., Ada yang salah. Coba lagi."
+          "something_gone_wrong": "Ops..., Ada yang salah. Coba lagi.",
+          "signup": "Daftar",
         },
       };
 }

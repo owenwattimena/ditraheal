@@ -29,11 +29,9 @@ class _HobiSignupPageState extends State<HobiSignupPage> {
                     children: authC.listHobby.map(
                       (hobi) {
                         return SelectCardWidget(
-                          margin:
-                              EdgeInsets.only(left: 24, right: 24, bottom: 12),
+                          margin: EdgeInsets.only(left: 24, right: 24, bottom: 12),
                           title: hobi.title,
-                          isSelected:
-                              (authC.hobi.value == hobi.id) ? true : false,
+                          isSelected: (authC.hobi.value == hobi.id) ? true : false,
                           imagePath: hobi.imagePath,
                           onTap: (val) {
                             authC.setHobi = hobi.id;
@@ -43,20 +41,24 @@ class _HobiSignupPageState extends State<HobiSignupPage> {
                     ).toList(),
                   ),
                 ),
-                ButtonWidget(
-                  margin: EdgeInsets.only(top: 24, left: 24, right: 24),
-                  text: "Daftar",
-                  onPressed: () {
-                    String? message = Validate.select(authC.hobi.value);
-                    if (message != null) {
-                      Get.showSnackbar(GetSnackBar(
-                        message: message,
-                        duration: Duration(seconds: 2),
-                      ));
-                    } else {
-                      Get.to(LandingTraumaQuiz());
-                    }
-                  },
+                Obx(
+                  () => ButtonWidget(
+                    margin: EdgeInsets.only(top: 24, left: 24, right: 24),
+                    text: authC.onLoading.value ? "Loading..." : "signup".tr,
+                    onPressed: !authC.onLoading.value
+                        ? () {
+                            String? message = Validate.select(authC.hobi.value);
+                            if (message != null) {
+                              Get.showSnackbar(GetSnackBar(
+                                message: message,
+                                duration: Duration(seconds: 2),
+                              ));
+                            } else {
+                              authC.doSignup();
+                            }
+                          }
+                        : null,
+                  ),
                 ),
               ],
             ),
