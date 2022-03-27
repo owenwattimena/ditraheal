@@ -6,9 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import "../utils/utils.dart";
 
+import "../utils/utils.dart";
 import '../provider/auth_provider.dart';
 import '../provider/hobby_provider.dart';
 import '../models/models.dart';
@@ -17,20 +16,19 @@ import '../pages/pages.dart';
 class SignupController extends GetxController {
   final AuthProvider authProvider = AuthProvider();
   final HobbyProvider hobbyProvider = HobbyProvider();
-  late String token = "";
+
   Rx<TextEditingController> namaController = new TextEditingController().obs;
   Rx<TextEditingController> emailController = new TextEditingController().obs;
   Rx<TextEditingController> noHpController = new TextEditingController().obs;
   Rx<TextEditingController> alamatController = new TextEditingController().obs;
   Rx<DateTime?> tanggalLahir = Rx<DateTime?>(null);
   RxInt hobi = RxInt(0);
-  // Rx<User> user = Rx<User>(User());
-  User user = User();
   RxList<Hobby> listHobby = <Hobby>[].obs;
   RxBool onLoading = false.obs;
+  User user = User();
   String? facebookValue;
+  String token = "";
   bool internetStatuserror = false;
-  late SharedPreferences prefs;
 
   @override
   void onInit() {

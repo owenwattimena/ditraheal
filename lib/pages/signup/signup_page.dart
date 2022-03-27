@@ -3,7 +3,7 @@ part of '../pages.dart';
 class SignupPage extends StatelessWidget 
 {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
-  final SignupController SignupC = Get.put(SignupController());
+  final SignupController signupC = Get.put(SignupController());
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class SignupPage extends StatelessWidget
                   InputWidget(
                     label: "name_tag".tr,
                     hintText: "name_tag".tr,
-                    textController: SignupC.namaController.value,
+                    textController: signupC.namaController.value,
                     // onChanged: (_) {},
                     textCapitalization: TextCapitalization.words,
                     validator: (val) =>
@@ -59,7 +59,7 @@ class SignupPage extends StatelessWidget
                     label: "phone_number_tag".tr,
                     hintText: "phone_number_tag".tr,
                     textController:
-                        SignupC.noHpController.value, // onChanged: (_) {},
+                        signupC.noHpController.value, // onChanged: (_) {},
                     keyboardType: TextInputType.phone,
                     validator: (val) => Validate.phoneNotNull(val,
                         label: "phone_number_tag".tr),
@@ -69,10 +69,10 @@ class SignupPage extends StatelessWidget
                     child: Text("birth_date_tag".tr),
                   ),
                   InputDatetimeWidget(
-                    initialDate: SignupC.tanggalLahir.value,
+                    initialDate: signupC.tanggalLahir.value,
                     label: "birth_date_tag".tr,
                     onDateSelected: (val) {
-                      SignupC.setTanggalLahir = val;
+                      signupC.setTanggalLahir = val;
                     },
                     validator: (datetime) => Validate.dateValidate(datetime,
                         label: "birth_date_tag".tr),
@@ -82,7 +82,7 @@ class SignupPage extends StatelessWidget
                     label: "address_tag".tr,
                     hintText: "address_tag".tr,
                     textController:
-                        SignupC.alamatController.value, // onChanged: (_) {},
+                        signupC.alamatController.value, // onChanged: (_) {},
                     keyboardType: TextInputType.streetAddress,
                     textCapitalization: TextCapitalization.sentences,
                     validator: (val) =>
@@ -96,10 +96,10 @@ class SignupPage extends StatelessWidget
                         top: 0,
                         label: "fb_follower_tag".tr,
                         hint: "input_fb_hint".tr,
-                        value: SignupC.facebookValue,
-                        options: SignupC.fbFollowers,
+                        value: signupC.facebookValue,
+                        options: signupC.fbFollowers,
                         validator: (val) => Validate.dropdown(val),
-                        onChanged: (val) => SignupC.facabookFollowers(val ?? ""),
+                        onChanged: (val) => signupC.facabookFollowers(val ?? ""),
                       );
                     },
                   ),
@@ -107,9 +107,9 @@ class SignupPage extends StatelessWidget
                     margin: EdgeInsets.only(top: 24, left: 24, right: 24),
                     text: "next".tr,
                     onPressed: () {
-                      // SignupC.getToken();
+                      // signupC.getToken();
                       if (_key.currentState!.validate())
-                        SignupC.goToHobySignupPage();
+                        signupC.goToHobySignupPage();
                       // Get.to(HobiSignupPage());
                     },
                   ),

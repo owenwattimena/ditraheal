@@ -8,7 +8,7 @@ class HobiSignupPage extends StatefulWidget {
 }
 
 class _HobiSignupPageState extends State<HobiSignupPage> {
-  final SignupController SignupC = Get.find<SignupController>();
+  final SignupController signupC = Get.find<SignupController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,15 +26,15 @@ class _HobiSignupPageState extends State<HobiSignupPage> {
                 ),
                 Obx(
                   () => Column(
-                    children: SignupC.listHobby.map(
+                    children: signupC.listHobby.map(
                       (hobi) {
                         return SelectCardWidget(
                           margin: EdgeInsets.only(left: 24, right: 24, bottom: 12),
                           title: hobi.title,
-                          isSelected: (SignupC.hobi.value == hobi.id) ? true : false,
+                          isSelected: (signupC.hobi.value == hobi.id) ? true : false,
                           imagePath: hobi.imagePath,
                           onTap: (val) {
-                            SignupC.setHobi = hobi.id;
+                            signupC.setHobi = hobi.id;
                           },
                         );
                       },
@@ -44,9 +44,9 @@ class _HobiSignupPageState extends State<HobiSignupPage> {
                 Obx(
                   () => ButtonWidget(
                     margin: EdgeInsets.only(top: 24, left: 24, right: 24),
-                    text: SignupC.onLoading.value ? "Loading..." : "signup".tr,
-                    onPressed: !SignupC.onLoading.value
-                        ? () => SignupC.checkHobby()
+                    text: signupC.onLoading.value ? "Loading..." : "signup".tr,
+                    onPressed: !signupC.onLoading.value
+                        ? () => signupC.checkHobby()
                         : null,
                   ),
                 ),

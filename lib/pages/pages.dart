@@ -1,11 +1,12 @@
 /// package
-import 'package:ditraheal/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:get/get.dart';
 
 /// local class
+import '../controllers/auth_controller.dart';
+import '../controllers/profile_controller.dart';
 import '../controllers/dashboard_controller.dart';
 import '../controllers/signup_controller.dart';
 import "../shared/shared.dart";

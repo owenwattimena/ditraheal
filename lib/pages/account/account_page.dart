@@ -39,7 +39,7 @@ class _AccountPageState extends State<AccountPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children:[
                       Text(authC.user.value.phoneNumber!, style: primaryTextStyle.copyWith(color: Colors.white),),
-                      Text(authC.user.value.name, style: primaryTextStyle.copyWith(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
+                      Obx(()=>Text(authC.user.value.name, style: primaryTextStyle.copyWith(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),),
                     ]
                   ),
                 ],
@@ -49,7 +49,7 @@ class _AccountPageState extends State<AccountPage> {
               title: Text("Profile"),
               leading: Icon(Icons.account_circle_outlined),
               trailing: Icon(Icons.chevron_right),
-              onTap: () => Get.to(ProfilePage()),
+              onTap: () => Get.to(()=>ProfilePage()),
             ),
             // ListTile(
             //   title: Text("Sosial Media"),
@@ -63,7 +63,7 @@ class _AccountPageState extends State<AccountPage> {
               title: Text("Hobi"),
               leading: Icon(Icons.emoji_emotions_outlined),
               trailing: Icon(Icons.chevron_right),
-              onTap: () => Get.to(HobiPage()),
+              onTap: () => Get.to(()=>HobiPage()),
 
             ),
             OutlineButtonWidget(

@@ -1,24 +1,8 @@
 part of "../pages.dart";
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
-
-  @override
-  _ProfilePageState createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
-  final SignupC = Get.find<SignupController>();
-  String? _facebookValue;
-  List<String> _folowers = [
-    "Tidak ada",
-    "1 s/d 1K",
-    "1K s/d 10K",
-    "10K s/d 100K",
-    "100K s/d 1Jt",
-    "Lebih dari 1Jt"
-  ];
-  GlobalKey<FormState> _key = GlobalKey<FormState>();
+class ProfilePage extends StatelessWidget {
+  final profileC = Get.put(ProfileController());
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -34,40 +18,29 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 24,
             ),
             InputWidget(
-              label: "Nama Lengkap",
-              hintText: "Nama Lengkap",
-              textController: SignupC.namaController.value,
-              onChanged: (_) => setState(() {}),
-              textCapitalization: TextCapitalization.sentences,
-              validator: (val) {
-                if (val.isEmpty) {
-                  return 'Tidak boleh kosong';
-                }
-              },
+              label: "name_tag".tr,
+              hintText: "name_tag".tr,
+              textController: profileC.nameController.value,
+              // onChanged: (_) {},
+              textCapitalization: TextCapitalization.words,
+              validator: (val) => Validate.notNull(val, label: "name_tag".tr),
             ),
             Container(
               padding: EdgeInsets.fromLTRB(24, 0, 24, 4),
-              child: Text("Tanggal Lahir"),
+              child: Text("birth_date_tag".tr),
             ),
             InputDatetimeWidget(
-              label: "Tanggal Lahir",
-              onDateSelected: (val) {
-                setState(() {
-                  SignupC.setTanggalLahir = val;
-                });
-              },
-              validator: (datetime) {
-                if (datetime == null) {
-                  return 'Tidak boleh kosong';
-                }
-              },
+              initialDate: profileC.birthDate.value,
+              label: "birth_date_tag".tr,
+              onDateSelected: (val) => profileC.birthDate.value = val,
+              validator: (datetime) =>
+                  Validate.dateValidate(datetime, label: "birth_date_tag".tr),
             ),
             SizedBox(height: 8),
             InputWidget(
               label: "Alamat",
               hintText: "Alamat",
-              textController: SignupC.noHpController.value,
-              onChanged: (_) => setState(() {}),
+              textController: profileC.addressController.value,
               keyboardType: TextInputType.streetAddress,
               validator: (val) {
                 if (val.isEmpty) return 'Tidak boleh kosong';
@@ -75,19 +48,20 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             InputSelectWidget(
               top: 0,
-              value: _facebookValue,
-              label: "Follower Facebook",
-              hint: "Jumlah Folllower Facebook",
-              options: _folowers,
-              onChanged: (val) => setState(() => _facebookValue = val),
+              label: "fb_follower_tag".tr,
+              hint: "input_fb_hint".tr,
+              value: profileC.facebookValue.value,
+              options: profileC.fbFollowers,
+              validator: (val) => Validate.dropdown(val),
+              onChanged: (val) => profileC.facabookFollowers(val ?? ""),
             ),
-            ButtonWidget(
+            Obx(()=>ButtonWidget(
               margin: EdgeInsets.only(top: 24, left: 24, right: 24),
-              text: "Simpan",
-              onPressed: () {
-                if (_key.currentState!.validate()) Get.back();
+              text: profileC.onLoading.value ? "Loading..." : "Simpan",
+              onPressed: profileC.onLoading.value ? null : () {
+                if (_key.currentState!.validate()) profileC.updateUser();
               },
-            ),
+            )),
           ],
         ),
       ),

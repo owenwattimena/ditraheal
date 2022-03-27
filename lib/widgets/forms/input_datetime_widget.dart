@@ -13,6 +13,7 @@ class InputDatetimeWidget extends StatelessWidget {
       
       child: DateTimeFormField(
         initialDate: initialDate,
+        initialValue: initialDate,
         decoration: InputDecoration(
           filled: true,
           fillColor: greyColor,

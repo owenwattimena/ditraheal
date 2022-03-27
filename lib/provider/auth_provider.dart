@@ -17,4 +17,8 @@ class AuthProvider {
   Future<ApiReturnValue> doSignup(Map body, {String? token}) async {
     return Provider.requestPost(IDENTITIES_URL, body, token: token);
   }
+
+  Future<ApiReturnValue> updateUser(int id, Map body, {String? token}) async {
+    return Provider.requestPut(IDENTITIES_URL + '/$id', body, token: token);
+  }
 }

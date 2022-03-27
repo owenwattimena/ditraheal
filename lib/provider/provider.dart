@@ -103,4 +103,36 @@ class Provider {
       }
     });
   }
+
+  static Future<ApiReturnValue> requestPut(String url, Map body, {String? token}) async {
+    if (token != null) {
+      Provider.headers["Authorization"] = "Bearer $token";
+    }
+    return Provider.request(() async {
+      var uri = Uri.parse(url);
+      http.Client client = http.Client();
+      var response = await client
+          .put(
+            uri,
+            headers: Provider.headers,
+            body: json.encode(body),
+          )
+          .timeout(Duration(seconds: 10));
+      var jsonResponse = json.decode(response.body);
+      print(jsonResponse);
+      if (response.statusCode == 200) {
+        return ApiReturnValue(
+          data: jsonResponse,
+          message: "success",
+          statusCode: 200,
+        );
+      } else {
+        return ApiReturnValue(
+          data: jsonResponse,
+          message: "error",
+          statusCode: response.statusCode,
+        );
+      }
+    });
+  }
 }

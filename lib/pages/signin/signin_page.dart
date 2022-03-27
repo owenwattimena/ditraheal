@@ -8,7 +8,7 @@ class SigninPage extends StatefulWidget {
 }
 
 class _SigninPageState extends State<SigninPage> {
-  final SignupC = Get.find<SignupController>();
+  final signupC = Get.find<SignupController>();
   GlobalKey<FormState> _key = GlobalKey<FormState>();
   TextEditingController _noHpController = new TextEditingController();
 
@@ -54,7 +54,7 @@ class _SigninPageState extends State<SigninPage> {
                     label: "Tanggal Lahir",
                     onDateSelected: (val) {
                       setState(() {
-                        SignupC.setTanggalLahir = val;
+                        signupC.setTanggalLahir = val;
                       });
                     },
                     validator: (datetime) {
