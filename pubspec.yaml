@@ -18,13 +18,12 @@ environment:
 
 dependencies:
   auto_size_text: ^3.0.0
-  # connectivity_plus: any
   date_field: ^2.1.2
   flutter:
     sdk: flutter
   get: ^4.6.1
   http: ^0.13.4
-  get_storage: ^2.0.3
+  shared_preferences: ^2.0.13
 
 dev_dependencies:
   flutter_test:

@@ -1,16 +1,15 @@
 part of "../pages.dart";
 
 class Dashboard extends StatelessWidget {
-  const Dashboard({Key? key}) : super(key: key);
+  final authC = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
-    final authC = Get.find<AuthController>();
     double deviceWidth = MediaQuery.of(context).size.width;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        HeaderWithCard(onAccountTap: () => Get.to(AccountPage()), user: authC.user.value.name, cardWidth: (deviceWidth / 2) - 24 - 6),
+        HeaderWithCard(onAccountTap: () => Get.to(()=>AccountPage()), user: authC.user.value.name, cardWidth: (deviceWidth / 2) - 24 - 6),
         SizedBox(height: 70),
         Container(
           decoration: BoxDecoration(

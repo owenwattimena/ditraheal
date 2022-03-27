@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
+// import 'package:get_storage/get_storage.dart';
 import 'package:get/get.dart';
 import 'pages/pages.dart';
 import 'utils/utils.dart';
 import 'widgets/widgets.dart';
+import 'controllers/auth_controller.dart';
 
-void main() async {
-  await GetStorage.init();
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  final authC = Get.put(AuthController(), permanent: true);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -26,19 +25,8 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         // A widget which will be started on application startup
-        home: SignupPage(),
+        home: Obx(() => (authC.isSignin.value) ? MainPage() : SignupPage()),
       ),
     );
   }
 }
-
-// class Test extends StatelessWidget {
-//   const Test({ Key? key }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       child: Center(child: Text('test')),
-//     );
-//   }
-// }

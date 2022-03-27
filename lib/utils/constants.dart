@@ -6,3 +6,4 @@ const String LOGIN_URL = BASE_URL + '/login';
 const String HOBBIES_URL = BASE_API_URL + '/references';
 const String IDENTITIES_URL = BASE_API_URL + '/identies';
 const int REQUSET_SUCCESS = 200;
+const int INTERNET_ERROR = 503;

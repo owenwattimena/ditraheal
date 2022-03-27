@@ -8,7 +8,7 @@ class HobiSignupPage extends StatefulWidget {
 }
 
 class _HobiSignupPageState extends State<HobiSignupPage> {
-  final AuthController authC = Get.find<AuthController>();
+  final SignupController SignupC = Get.find<SignupController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,15 +26,15 @@ class _HobiSignupPageState extends State<HobiSignupPage> {
                 ),
                 Obx(
                   () => Column(
-                    children: authC.listHobby.map(
+                    children: SignupC.listHobby.map(
                       (hobi) {
                         return SelectCardWidget(
                           margin: EdgeInsets.only(left: 24, right: 24, bottom: 12),
                           title: hobi.title,
-                          isSelected: (authC.hobi.value == hobi.id) ? true : false,
+                          isSelected: (SignupC.hobi.value == hobi.id) ? true : false,
                           imagePath: hobi.imagePath,
                           onTap: (val) {
-                            authC.setHobi = hobi.id;
+                            SignupC.setHobi = hobi.id;
                           },
                         );
                       },
@@ -44,19 +44,9 @@ class _HobiSignupPageState extends State<HobiSignupPage> {
                 Obx(
                   () => ButtonWidget(
                     margin: EdgeInsets.only(top: 24, left: 24, right: 24),
-                    text: authC.onLoading.value ? "Loading..." : "signup".tr,
-                    onPressed: !authC.onLoading.value
-                        ? () {
-                            String? message = Validate.select(authC.hobi.value);
-                            if (message != null) {
-                              Get.showSnackbar(GetSnackBar(
-                                message: message,
-                                duration: Duration(seconds: 2),
-                              ));
-                            } else {
-                              authC.doSignup();
-                            }
-                          }
+                    text: SignupC.onLoading.value ? "Loading..." : "signup".tr,
+                    onPressed: !SignupC.onLoading.value
+                        ? () => SignupC.checkHobby()
                         : null,
                   ),
                 ),

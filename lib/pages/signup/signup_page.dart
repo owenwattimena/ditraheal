@@ -1,16 +1,10 @@
 part of '../pages.dart';
 
-class SignupPage extends StatelessWidget {
+class SignupPage extends StatelessWidget 
+{
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
-  final AuthController authC = Get.put(AuthController());
-  // final List<String> followers = [
-  //   "Tidak ada",
-  //   "1 s/d 1K",
-  //   "1K s/d 10K",
-  //   "10K s/d 100K",
-  //   "100K s/d 1Jt",
-  //   "Lebih dari 1Jt"
-  // ];
+  final SignupController SignupC = Get.put(SignupController());
+
   @override
   Widget build(BuildContext context) {
     double statusBarHeight = MediaQuery.of(context).padding.top;
@@ -55,51 +49,57 @@ class SignupPage extends StatelessWidget {
                   InputWidget(
                     label: "name_tag".tr,
                     hintText: "name_tag".tr,
-                    textController: authC.namaController.value,
+                    textController: SignupC.namaController.value,
                     // onChanged: (_) {},
                     textCapitalization: TextCapitalization.words,
-                    validator: (val) => Validate.notNull(val, label: "name_tag".tr),
+                    validator: (val) =>
+                        Validate.notNull(val, label: "name_tag".tr),
                   ),
                   InputWidget(
                     label: "phone_number_tag".tr,
                     hintText: "phone_number_tag".tr,
-                    textController: authC.noHpController.value,// onChanged: (_) {},
+                    textController:
+                        SignupC.noHpController.value, // onChanged: (_) {},
                     keyboardType: TextInputType.phone,
-                    validator: (val) => Validate.phoneNotNull(val, label: "phone_number_tag".tr),
+                    validator: (val) => Validate.phoneNotNull(val,
+                        label: "phone_number_tag".tr),
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(24, 0, 24, 4),
                     child: Text("birth_date_tag".tr),
                   ),
                   InputDatetimeWidget(
-                    initialDate: authC.tanggalLahir.value,
+                    initialDate: SignupC.tanggalLahir.value,
                     label: "birth_date_tag".tr,
                     onDateSelected: (val) {
-                      authC.setTanggalLahir = val;
+                      SignupC.setTanggalLahir = val;
                     },
-                    validator: (datetime) => Validate.dateValidate(datetime, label: "birth_date_tag".tr),
+                    validator: (datetime) => Validate.dateValidate(datetime,
+                        label: "birth_date_tag".tr),
                   ),
                   SizedBox(height: 8),
                   InputWidget(
                     label: "address_tag".tr,
                     hintText: "address_tag".tr,
-                    textController: authC.alamatController.value,// onChanged: (_) {},
+                    textController:
+                        SignupC.alamatController.value, // onChanged: (_) {},
                     keyboardType: TextInputType.streetAddress,
                     textCapitalization: TextCapitalization.sentences,
-                    validator: (val) => Validate.notNull(val, label: "address_tag".tr),
+                    validator: (val) =>
+                        Validate.notNull(val, label: "address_tag".tr),
                   ),
-                  GetBuilder<AuthController>(
-                    // init: AuthController(),
+                  GetBuilder<SignupController>(
+                    // init: SignupController(),
                     initState: (_) {},
                     builder: (_) {
                       return InputSelectWidget(
                         top: 0,
                         label: "fb_follower_tag".tr,
                         hint: "input_fb_hint".tr,
-                        value: authC.facebookValue,
-                        options: authC.fbFollowers,
+                        value: SignupC.facebookValue,
+                        options: SignupC.fbFollowers,
                         validator: (val) => Validate.dropdown(val),
-                        onChanged: (val) => authC.facabookFollowers(val ?? ""),
+                        onChanged: (val) => SignupC.facabookFollowers(val ?? ""),
                       );
                     },
                   ),
@@ -107,10 +107,10 @@ class SignupPage extends StatelessWidget {
                     margin: EdgeInsets.only(top: 24, left: 24, right: 24),
                     text: "next".tr,
                     onPressed: () {
-                      // authC.getToken();
-                      authC.goToHobySignupPage();
-                      // if (_key.currentState!.validate())
-                        // Get.to(HobiSignupPage());
+                      // SignupC.getToken();
+                      if (_key.currentState!.validate())
+                        SignupC.goToHobySignupPage();
+                      // Get.to(HobiSignupPage());
                     },
                   ),
                   OutlineButtonWidget(
@@ -130,7 +130,7 @@ class SignupPage extends StatelessWidget {
 // InputWidget(
 //   label: "Email",
 //   hintText: "Email",
-//   textController: authC.emailController.value,
+//   textController: SignupC.emailController.value,
 //   onChanged: (_) => setState(() {}),
 //   keyboardType: TextInputType.emailAddress,
 //   validator: (val) {

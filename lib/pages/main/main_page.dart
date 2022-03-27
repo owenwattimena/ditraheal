@@ -8,8 +8,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  // AuthController authC = Get.put(AuthController());
-  AuthController authC = Get.find<AuthController>();
+  DashboardController dashC = Get.put(DashboardController());
   int _tabIndex = 0;
 
   List<Widget> _tabs = [

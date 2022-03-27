@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:ditraheal/utils/utils.dart';
+
 import '../models/api_return_value.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -27,7 +29,7 @@ class Provider {
       result = ApiReturnValue(
         data: null,
         message: "error. SocketException",
-        statusCode: 400,
+        statusCode: INTERNET_ERROR,
       );
     } catch (e) {
       result = ApiReturnValue(

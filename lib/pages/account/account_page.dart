@@ -38,8 +38,8 @@ class _AccountPageState extends State<AccountPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children:[
-                      Text(authC.noHpController.value.text, style: primaryTextStyle.copyWith(color: Colors.white),),
-                      Text(authC.namaController.value.text, style: primaryTextStyle.copyWith(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
+                      Text(authC.user.value.phoneNumber!, style: primaryTextStyle.copyWith(color: Colors.white),),
+                      Text(authC.user.value.name, style: primaryTextStyle.copyWith(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
                     ]
                   ),
                 ],

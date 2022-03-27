@@ -8,7 +8,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final authC = Get.find<AuthController>();
+  final SignupC = Get.find<SignupController>();
   String? _facebookValue;
   List<String> _folowers = [
     "Tidak ada",
@@ -36,7 +36,7 @@ class _ProfilePageState extends State<ProfilePage> {
             InputWidget(
               label: "Nama Lengkap",
               hintText: "Nama Lengkap",
-              textController: authC.namaController.value,
+              textController: SignupC.namaController.value,
               onChanged: (_) => setState(() {}),
               textCapitalization: TextCapitalization.sentences,
               validator: (val) {
@@ -53,7 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
               label: "Tanggal Lahir",
               onDateSelected: (val) {
                 setState(() {
-                  authC.setTanggalLahir = val;
+                  SignupC.setTanggalLahir = val;
                 });
               },
               validator: (datetime) {
@@ -66,7 +66,7 @@ class _ProfilePageState extends State<ProfilePage> {
             InputWidget(
               label: "Alamat",
               hintText: "Alamat",
-              textController: authC.noHpController.value,
+              textController: SignupC.noHpController.value,
               onChanged: (_) => setState(() {}),
               keyboardType: TextInputType.streetAddress,
               validator: (val) {
