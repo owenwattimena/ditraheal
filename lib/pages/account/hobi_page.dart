@@ -1,7 +1,7 @@
 part of "../pages.dart";
 
 class HobiPage extends StatelessWidget {
-  final profileC = Get.put(ProfileController());
+  final profileC = Get.find<ProfileController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,11 +18,11 @@ class HobiPage extends StatelessWidget {
               children: profileC.listHobby.map((hobi) {
                 return SelectCardWidget(
                   margin: EdgeInsets.only(left: 24, right: 24, bottom: 12),
-                  title: hobi.title,
+                  title: hobi.title!,
                   isSelected: (profileC.hobi.value == hobi.id) ? true : false,
                   imagePath: hobi.imagePath,
                   onTap: (val) {
-                    profileC.setHobi = hobi.id;
+                    profileC.setHobi = hobi.id!;
                   },
                 );
               }).toList(),

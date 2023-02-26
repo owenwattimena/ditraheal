@@ -1,6 +1,7 @@
 class ApiReturnValue<T>{
   T? data;
-  String message;
+  String? message;
+  bool success;
   int statusCode;
-  ApiReturnValue({this.data, required this.message, required this.statusCode});
+  ApiReturnValue({this.data, required this.message, required this.statusCode, required this.success});
 }

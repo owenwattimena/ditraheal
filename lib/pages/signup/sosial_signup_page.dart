@@ -28,27 +28,27 @@ class _SosialSignupPageState extends State<SosialSignupPage> {
             child: ListView(
               children: [
                 SizedBox(height: 24),
-                InputSelectWidget(
-                  value: _facebookValue,
-                  label: "Follower Facebook",
-                  hint: "Jumlah Folllower Facebook",
-                  options: _folowers,
-                  onChanged: (val) => setState(() => _facebookValue = val),
-                ),
-                InputSelectWidget(
-                  value: _instagramValue,
-                  label: "Follower Instagram",
-                  hint: "Jumlah Folllower Instagram",
-                  options: _folowers,
-                  onChanged: (val) => setState(() => _instagramValue = val),
-                ),
-                InputSelectWidget(
-                  value: _tiktokValue,
-                  label: "Follower Tiktok",
-                  hint: "Jumlah Folllower Tiktok",
-                  options: _folowers,
-                  onChanged: (val) => setState(() => _tiktokValue = val),
-                ),
+                // InputSelectWidget(
+                //   value: _facebookValue,
+                //   label: "Follower Facebook",
+                //   hint: "Jumlah Folllower Facebook",
+                //   options: _folowers,
+                //   onChanged: (val) => setState(() => _facebookValue = val),
+                // ),
+                // InputSelectWidget(
+                //   value: _instagramValue,
+                //   label: "Follower Instagram",
+                //   hint: "Jumlah Folllower Instagram",
+                //   options: _folowers,
+                //   onChanged: (val) => setState(() => _instagramValue = val),
+                // ),
+                // InputSelectWidget(
+                //   value: _tiktokValue,
+                //   label: "Follower Tiktok",
+                //   hint: "Jumlah Folllower Tiktok",
+                //   options: _folowers,
+                //   onChanged: (val) => setState(() => _tiktokValue = val),
+                // ),
                 ButtonWidget(
                   margin: EdgeInsets.only(top: 24, left:24, right:24),
                     text: "Selanjutnya",

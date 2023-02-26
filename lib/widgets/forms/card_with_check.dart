@@ -2,17 +2,19 @@ part of "../widgets.dart";
 
 class CardWithCheck extends StatelessWidget {
   final Function(bool?) onChanged;
-  const CardWithCheck({Key? key, required this.onChanged}) : super(key: key);
+  final String text;
+  final bool checked;
+  const CardWithCheck({Key? key, required this.onChanged, required this.text, required this.checked}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      // padding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+      padding: EdgeInsets.symmetric(vertical: 6),
       margin: EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(5),
-        // border: Border.all(color: Colors.grey, width: 1),
+        border: Border.all(color: checked ? primaryColor : Colors.transparent, width: checked ? 1 : 0),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
@@ -24,10 +26,11 @@ class CardWithCheck extends StatelessWidget {
       ),
       child: Row(children: [
         Checkbox(
-          value: true,
+          value: checked,
+          shape: CircleBorder(),
           onChanged: (val) => onChanged(val),
         ),
-        Text("Gabung grup komunitas", style: primaryTextStyle),
+        Flexible(child:Text(text, style: primaryTextStyle)),
       ]),
     );
   }

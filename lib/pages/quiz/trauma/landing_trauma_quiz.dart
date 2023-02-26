@@ -8,6 +8,22 @@ class LandingTraumaQuiz extends StatefulWidget {
 }
 
 class _LandingTraumaQuizState extends State<LandingTraumaQuiz> {
+
+  // final questionC = Get.put(QuestionController());
+  final questionC = Get.find<QuestionController>();
+
+
+  User user = User();
+  @override
+  void initState() {
+    super.initState();
+    StoreProvide.getMap('user').then((value) {
+      setState((){
+        user = User.fromJson(value!);
+      });
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
@@ -21,7 +37,7 @@ class _LandingTraumaQuizState extends State<LandingTraumaQuiz> {
                 title: "TES LEVEL TRAUMA",
                 width: deviceWidth - (24 * 2),
                 child: Text(
-                  "Sebelum melakukan pemulihan trauma silahkan isi kuisioner untuk melihat level trauma anda. Pada kuisioner tersedia pilihan jawaban atas suatu pertanyaan. Setiap jawaban memiliki skor masing-masing. Semakin besar skor semakin tinggi tingkat kepercayaan anda terhadap suatu pertanyaan.",
+                  "${user.name}, sebelum melakukan pemulihan trauma silahkan isi kuisioner untuk melihat level trauma anda. Pada kuisioner tersedia pilihan jawaban atas suatu pertanyaan. Setiap jawaban memiliki skor masing-masing. Semakin besar skor semakin tinggi tingkat kepercayaan anda terhadap suatu pertanyaan.",
                   style: primaryTextStyle,
                 ),
                 primaryButtonText: "Mulai Tes",
@@ -35,11 +51,12 @@ class _LandingTraumaQuizState extends State<LandingTraumaQuiz> {
   }
 
   void gotoTraumaQuiz() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => TraumaQuiz(),
-      ),
-    );
+    Get.toNamed('/trauma-quiz');
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => TraumaQuiz(),
+    //   ),
+    // );
   }
 }

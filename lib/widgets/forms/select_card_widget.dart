@@ -50,12 +50,14 @@ class SelectCardWidget extends StatelessWidget {
                       ),
                     )
                   : SizedBox(),
-              Text(
-                title,
-                style: primaryTextStyle.copyWith(
-                  fontSize: 20,
-                  color: (isSelected) ? primaryColor : darkGreyColor,
-                  fontWeight: FontWeight.bold,
+              Flexible(
+                child: Text(
+                  title,
+                  style: primaryTextStyle.copyWith(
+                    fontSize: 20,
+                    color: (isSelected) ? primaryColor : darkGreyColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],

@@ -1,7 +1,15 @@
+import 'package:ditraheal/controllers/auth_controller.dart';
+import 'package:ditraheal/controllers/dashboard_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:date_field/date_field.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 // import 'package:get/get.dart';
+import '../controllers/loading_controller.dart';
+// import '../pages/pages.dart';
+import '../controllers/periode_controller.dart';
 import '../shared/shared.dart';
+// import '../models/models.dart';
 
 part "forms/input_widget.dart";
 part "forms/input_datetime_widget.dart";
@@ -17,3 +25,5 @@ part "components/header_with_card.dart";
 part "components/dashboard_content.dart";
 part "forms/card_with_check.dart";
 part "components/dismiss_keyboard.dart";
+part "loader/loading_overlay.dart";
+part "loader/loading_answer_overlay.dart";

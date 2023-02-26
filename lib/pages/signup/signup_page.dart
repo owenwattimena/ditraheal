@@ -1,9 +1,11 @@
 part of '../pages.dart';
 
-class SignupPage extends StatelessWidget 
-{
+class SignupPage extends StatelessWidget {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   final SignupController signupC = Get.put(SignupController());
+  // final FbFollowerController fbFollC = Get.put(FbFollowerController());
+
+  List<String> options = ["0","100", "1000"];  
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +23,9 @@ class SignupPage extends StatelessWidget
               child: ListView(
                 children: [
                   Container(
-                    padding: EdgeInsets.fromLTRB(24, 32, 24, 0),
+                    padding: EdgeInsets.fromLTRB(24, 32, 24, 32),
                     width: double.infinity,
-                    height: 168.0,
+                    // height: 168.0,
                     color: primaryColor,
                     child: Column(
                       children: [
@@ -39,7 +41,7 @@ class SignupPage extends StatelessWidget
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.fromLTRB(24, 43, 24, 36),
+                    padding: EdgeInsets.fromLTRB(24, 43/2, 24, 36),
                     child: Text(
                       "sign_up_heading".tr,
                       style: headlineTextStyle,
@@ -88,20 +90,14 @@ class SignupPage extends StatelessWidget
                     validator: (val) =>
                         Validate.notNull(val, label: "address_tag".tr),
                   ),
-                  GetBuilder<SignupController>(
-                    // init: SignupController(),
-                    initState: (_) {},
-                    builder: (_) {
-                      return InputSelectWidget(
-                        top: 0,
-                        label: "fb_follower_tag".tr,
-                        hint: "input_fb_hint".tr,
-                        value: signupC.facebookValue,
-                        options: signupC.fbFollowers,
-                        validator: (val) => Validate.dropdown(val),
-                        onChanged: (val) => signupC.facabookFollowers(val ?? ""),
-                      );
-                    },
+                  InputSelectWidget(
+                    top: 0,
+                    label: "fb_follower_tag".tr,
+                    hint: "input_fb_hint".tr,
+                    value: "0",
+                    options: options,
+                    validator: (val) => Validate.dropdown(val),
+                    onChanged: (val) => signupC.facabookFollowers(val ?? ""),
                   ),
                   ButtonWidget(
                     margin: EdgeInsets.only(top: 24, left: 24, right: 24),
@@ -115,7 +111,7 @@ class SignupPage extends StatelessWidget
                   ),
                   OutlineButtonWidget(
                     text: "already_registered".tr,
-                    onPressed: () => Get.to(SigninPage()),
+                    onPressed: () => Get.toNamed('signin'),
                   ),
                   SizedBox(height: 24)
                 ],

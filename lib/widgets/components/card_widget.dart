@@ -2,7 +2,16 @@ part of "../widgets.dart";
 
 class CardWidget extends StatelessWidget {
   final double width;
-  const CardWidget({Key? key, this.width = 0}) : super(key: key);
+  final String title;
+  final String? value;
+  final Function()? onPressed;
+  const CardWidget(
+      {Key? key,
+      this.width = 0,
+      required this.title,
+      this.onPressed,
+      this.value})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,17 +32,25 @@ class CardWidget extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text("TEST LEVEL TRAUMA", style: primaryTextStyle),
-          Text("44",
+          Text(title, style: primaryTextStyle),
+          SizedBox(
+            height: 10,
+          ),
+          Text( value != null ? value!.toUpperCase() : '-',
               style: primaryTextStyle.copyWith(
-                  fontSize: 24, fontWeight: FontWeight.bold, color: accentColor)),
-          TextButton(
-              onPressed: () {},
-              child: Text("Ulangi Tes", style: primaryTextStyle),
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.zero,
-                // maximumSize: Size(75, 22),
-              )),
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: accentColor)),
+          SizedBox(
+            height: 30,
+          ),
+          // TextButton(
+          //     onPressed: onPressed,
+          //     child: Text("Ulangi Tes", style: primaryTextStyle),
+          //     style: TextButton.styleFrom(
+          //       padding: EdgeInsets.zero,
+          //       // maximumSize: Size(75, 22),
+          //     )),
         ],
       ),
     );

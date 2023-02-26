@@ -12,6 +12,7 @@ import '../provider/auth_provider.dart';
 import '../provider/hobby_provider.dart';
 import '../models/models.dart';
 import '../pages/pages.dart';
+import 'signin_controller.dart';
 
 class SignupController extends GetxController {
   final AuthProvider authProvider = AuthProvider();
@@ -33,26 +34,25 @@ class SignupController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getToken();
+    getHobbies();
   }
 
   /// get auth Token from API
-  Future<void> getToken() async {
-    final result = await authProvider.fetchToken();
-    print(result.statusCode);
-    if (result.statusCode == 200) {
-      token = result.data["token"];
-      StoreProvide.storeString("token", token);
-      getHobbies();
-    } else {
-      getToken();
-    }
-  }
+  // Future<void> getToken() async {
+  //   final result = await authProvider.fetchToken();
+  //   print(result.statusCode);
+  //   if (result.statusCode == 200) {
+  //     token = result.data["token"];
+  //     StoreProvide.storeString("token", token);
+  //     getHobbies();
+  //   } else {
+  //     getToken();
+  //   }
+  // }
 
   // get list of hobbies from API
   Future<void> getHobbies() async {
-    final result = await hobbyProvider.fetchHobbies(token: token);
-    print(result.message);
+    final result = await hobbyProvider.fetchHobbies();
     if (result.statusCode == 200) {
       listHobby.value = result.data!;
     } else {
@@ -94,7 +94,7 @@ class SignupController extends GetxController {
       address: alamatController.value.text,
       follower: int.parse(facebookValue!),
     );
-    Get.to(HobiSignupPage());
+    Get.toNamed('hobi-signup');
   }
 
   void checkHobby() {
@@ -106,6 +106,8 @@ class SignupController extends GetxController {
       ));
     } else {
       user = user.copyWith(hobby: hobi.value);
+      // print(user.toString());
+      // return;
       doSignup();
     }
   }
@@ -113,16 +115,30 @@ class SignupController extends GetxController {
   /// signup to create new user
   Future<void> doSignup() async {
     onLoading.value = true;
+
     /// post user data to API
-    final result = await authProvider.doSignup(user.toMap(), token: token);
-    if (result.statusCode == REQUSET_SUCCESS) {
-      final userData = result.data[0]["data"];
-      /// store user data to SharedPreferences
-      StoreProvide.storeMap("user", userData);
-      /// update user 
-      user = User.fromJson(userData);
-      /// push to landing page
-      Get.offAll(()=>LandingTraumaQuiz());
+    print(user.toMap());
+    final result = await authProvider.doSignup(user.toMap());
+    if (result.statusCode == REQUEST_SUCCESS) {
+      final userData = result.data;
+      
+      String userPhoneNumber = userData["no_hp"];
+      String userBirthDate = userData["tanggal_lahir"];
+
+      final signin = await authProvider.doSignin({
+        "no_hp" : userPhoneNumber,
+        "tanggal_lahir" : userBirthDate
+      });
+      if (signin.statusCode == REQUEST_SUCCESS) {
+        /// store user data to SharedPreferences
+        StoreProvide.storeMap("user", signin.data[0]);
+        final token = signin.data[0]['token'];
+        print(token);
+        StoreProvide.storeString("token", token);
+        /// update user
+        Get.offAndToNamed('landing-trauma');
+        // Get.offAll(() => LandingTraumaQuiz());
+      }
     } else if (result.statusCode == INTERNET_ERROR) {
       Get.bottomSheet(
         Container(
@@ -151,7 +167,7 @@ class SignupController extends GetxController {
       );
     } else {
       Get.showSnackbar(GetSnackBar(
-        message: "something_gone_wrong".tr,
+        message: "${result.message}",
         duration: Duration(seconds: 2),
       ));
     }

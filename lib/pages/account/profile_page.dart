@@ -1,7 +1,8 @@
 part of "../pages.dart";
 
 class ProfilePage extends StatelessWidget {
-  final profileC = Get.put(ProfileController());
+  final profileC = Get.find<ProfileController>();
+  final AuthC = Get.find<AuthController>();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
   @override
@@ -46,15 +47,15 @@ class ProfilePage extends StatelessWidget {
                 if (val.isEmpty) return 'Tidak boleh kosong';
               },
             ),
-            InputSelectWidget(
-              top: 0,
-              label: "fb_follower_tag".tr,
-              hint: "input_fb_hint".tr,
-              value: profileC.facebookValue.value,
-              options: profileC.fbFollowers,
-              validator: (val) => Validate.dropdown(val),
-              onChanged: (val) => profileC.facabookFollowers(val ?? ""),
-            ),
+            // InputSelectWidget(
+            //   top: 0,
+            //   label: "fb_follower_tag".tr,
+            //   hint: "input_fb_hint".tr,
+            //   value: profileC.facebookValue.value,
+            //   options: profileC.fbFollowers,
+            //   validator: (val) => Validate.dropdown(val),
+            //   onChanged: (val) => profileC.facabookFollowers(val ?? ""),
+            // ),
             Obx(()=>ButtonWidget(
               margin: EdgeInsets.only(top: 24, left: 24, right: 24),
               text: profileC.onLoading.value ? "Loading..." : "Simpan",

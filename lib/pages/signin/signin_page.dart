@@ -8,9 +8,10 @@ class SigninPage extends StatefulWidget {
 }
 
 class _SigninPageState extends State<SigninPage> {
-  final signupC = Get.find<SignupController>();
+  final signinC = Get.put(SigninController());
   GlobalKey<FormState> _key = GlobalKey<FormState>();
   TextEditingController _noHpController = new TextEditingController();
+  late DateTime tanggalLahir;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,7 @@ class _SigninPageState extends State<SigninPage> {
                     label: "Tanggal Lahir",
                     onDateSelected: (val) {
                       setState(() {
-                        signupC.setTanggalLahir = val;
+                        tanggalLahir = val;
                       });
                     },
                     validator: (datetime) {
@@ -63,20 +64,15 @@ class _SigninPageState extends State<SigninPage> {
                       }
                     },
                   ),
-                  ButtonWidget(
-                    text: "Masuk",
+                  Obx(()=>ButtonWidget(
+                    text: signinC.onLoading.value ? "Loading..." : "Masuk",
                     margin: EdgeInsets.only(top: 12, left: 24, right: 24),
-                    onPressed: () {
+                    onPressed: !signinC.onLoading.value ? () async{
                       if (_key.currentState!.validate()) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => LandingTraumaQuiz(),
-                          ),
-                        );
+                        await signinC.signin(_noHpController.text, DateFormat('yyyy-MM-dd').format(tanggalLahir));
                       }
-                    },
-                  ),
+                    } : null,
+                  )),
                   OutlineButtonWidget(
                     text: "Belum pernah daftar?",
                     onPressed: () {

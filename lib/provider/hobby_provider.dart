@@ -5,10 +5,12 @@ import '../utils/utils.dart';
 import 'provider.dart';
 
 class HobbyProvider {
-  Future<ApiReturnValue> fetchHobbies({required String token}) async {
-    ApiReturnValue result = await Provider.requestGet(HOBBIES_URL, token: token);
-    if (result.statusCode == REQUSET_SUCCESS) {
+  Future<ApiReturnValue> fetchHobbies() async {
+    ApiReturnValue result = await Provider.requestGet(HOBBIES_URL);
+    print('HOBI STATUS : ${result.message}');
+    if (result.statusCode == REQUEST_SUCCESS) {
       List<Hobby> hobbyList = [];
+      print(result);
       for (var item in result.data) {
         Hobby hobi = Hobby.fromJson(item);
         hobbyList.add(hobi);

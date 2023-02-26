@@ -1,19 +1,22 @@
 part of 'models.dart';
 
 class Hobby {
-  final int id;
+  final int? id;
   final String? imagePath;
-  final String title;
+  final String? title;
 
-  Hobby(this.id, this.imagePath, this.title);
+  Hobby({this.id, this.imagePath, this.title});
 
   factory Hobby.fromJson(Map<String, dynamic> json) {
     String? imagePath;
     switch (json['deskripsi']) {
-      case "Seni":
+      case "Art/Seni":
         imagePath = "assets/images/seni_hobi_icon.png";
         break;
-      case "Baca":
+      case "Musik":
+        imagePath = "assets/images/seni_hobi_icon.png";
+        break;
+      case "Membaca/Menonton":
         imagePath = "assets/images/baca_hobi_icon.png";
         break;
       case "Olahraga":
@@ -25,9 +28,9 @@ class Hobby {
 
     }
     return Hobby(
-      json['id'] as int,
-      /*json['image_path'] as String*/ imagePath,
-      json['deskripsi'] as String,
+      id : json['id'] as int,
+      /*json['image_path'] as String*/ imagePath : imagePath,
+      title :json['deskripsi'] as String,
     );
   }
 }

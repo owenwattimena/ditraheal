@@ -4,6 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 /// this class use to set data to shared preference
 class StoreProvide{
+  static void storeInt(String key, int value){
+    WidgetsFlutterBinding.ensureInitialized();
+    SharedPreferences.getInstance().then((prefs){
+      prefs.setInt(key, value);
+    });
+  }
+
+  static Future<int?> getInt(String key) async{
+    WidgetsFlutterBinding.ensureInitialized();
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(key);
+  }
+
   static void storeString(String key, String value){
     WidgetsFlutterBinding.ensureInitialized();
     SharedPreferences.getInstance().then((prefs){

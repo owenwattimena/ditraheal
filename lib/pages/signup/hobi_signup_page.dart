@@ -1,3 +1,4 @@
+
 part of "../pages.dart";
 
 class HobiSignupPage extends StatefulWidget {
@@ -30,11 +31,11 @@ class _HobiSignupPageState extends State<HobiSignupPage> {
                       (hobi) {
                         return SelectCardWidget(
                           margin: EdgeInsets.only(left: 24, right: 24, bottom: 12),
-                          title: hobi.title,
+                          title: hobi.title!,
                           isSelected: (signupC.hobi.value == hobi.id) ? true : false,
                           imagePath: hobi.imagePath,
                           onTap: (val) {
-                            signupC.setHobi = hobi.id;
+                            signupC.setHobi = hobi.id!;
                           },
                         );
                       },
@@ -49,6 +50,9 @@ class _HobiSignupPageState extends State<HobiSignupPage> {
                         ? () => signupC.checkHobby()
                         : null,
                   ),
+                ),
+                SizedBox(
+                  height: 24,
                 ),
               ],
             ),

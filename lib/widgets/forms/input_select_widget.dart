@@ -43,6 +43,7 @@ class InputSelectWidget extends StatelessWidget {
                 value: val,
               );
             }).toList(),
+
             onChanged: (val) => onChanged(val),
             decoration: InputDecoration(
               filled: true,

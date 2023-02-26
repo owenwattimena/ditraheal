@@ -6,16 +6,20 @@ import '../utils/utils.dart';
 
 class AuthProvider {
   /// Fetch API TOKEN data from API
-  Future<ApiReturnValue> fetchToken({String username = "adm", String password = "jok742n"}) async {
-    Map body = {
-      'username': username,
-      'password': password
-    };
-    return Provider.requestPost(LOGIN_URL, body);
+  static Future<ApiReturnValue> checkToken(String token) async {
+    return await Provider.requestGet(CHECK_TOKEN_URL + token, token: token);
   }
 
-  Future<ApiReturnValue> doSignup(Map body, {String? token}) async {
-    return Provider.requestPost(IDENTITIES_URL, body, token: token);
+  static Future<ApiReturnValue> user(String token, int id) async {
+    return await Provider.requestGet(IDENTITIES_URL + '/' + id.toString(), token: token);
+  }
+
+  Future<ApiReturnValue> doSignup(Map body) async {
+    return Provider.requestPost(IDENTITIES_URL, body);
+  }
+
+  Future<ApiReturnValue> doSignin(Map body) async {
+    return Provider.requestPost(LOGIN_URL, body);
   }
 
   Future<ApiReturnValue> updateUser(int id, Map body, {String? token}) async {

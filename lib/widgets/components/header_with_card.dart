@@ -4,12 +4,14 @@ class HeaderWithCard extends StatelessWidget {
   final String user;
   final double? cardWidth;
   final Function()? onAccountTap;
+  final Function()? onPressedEfficacy;
   const HeaderWithCard(
-      {Key? key, required this.user, this.cardWidth = double.infinity, required this.onAccountTap})
+      {Key? key, required this.user, this.cardWidth = double.infinity, required this.onAccountTap, this.onPressedEfficacy})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final periodeC = Get.find<PeriodeController>();
     return Container(
       width: double.infinity,
       height: 180,
@@ -55,14 +57,14 @@ class HeaderWithCard extends StatelessWidget {
             right: 0,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Row(
+              child: Obx(() => Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // CARD 1
-                  CardWidget(width: cardWidth!),
-                  CardWidget(width: cardWidth!),
+                  CardWidget(width: cardWidth!, title: 'LEVEL TRAUMA', value: periodeC.skorTest.value.levelTrauma),
+                  CardWidget(width: cardWidth!, title: 'EFIKASI',  value: "${periodeC.skorTest.value.totalScoreEfikasi}"),
                 ],
-              ),
+              )),
             ),
           ),
         ],

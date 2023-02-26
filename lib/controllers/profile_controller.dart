@@ -19,22 +19,26 @@ class ProfileController extends GetxController {
   Rx<TextEditingController> addressController = new TextEditingController().obs;
   Rx<String?> facebookValue = Rx<String?>(null);
   RxBool onLoading = false.obs;
-  RxList listHobby = <Hobby>[].obs;
-  RxInt hobi = 0.obs;
+  RxList<Hobby> listHobby = <Hobby>[].obs;
+  Rx<int?> hobi = Rx<int?>(null);
+
   @override
   void onInit() {
     super.onInit();
+    // if (!authC.isSignin.value) {
+    //   authC.auth();
+    // }
     setUsertoFields();
     getHobbies();
   }
 
-  void setUsertoFields() {
-    User user = authC.user.value;
+  void setUsertoFields() async {
+    User user = User.fromJson((await StoreProvide.getMap('user'))!);
     nameController.value = new TextEditingController(text: user.name);
-    birthDate.value = DateTime.parse(user.birthDate!);
+    birthDate.value = user.birthDate != null ? DateTime.parse(user.birthDate!) : null;
     addressController.value = new TextEditingController(text: user.address);
     facebookValue.value = user.follower.toString();
-    hobi.value = user.hobby!;
+    hobi.value = user.hobby;
   }
 
   /// get list of fb followers from [Language] class
@@ -51,7 +55,7 @@ class ProfileController extends GetxController {
 
   // get list of hobbies from API
   Future<void> getHobbies() async {
-    final result = await hobbyProvider.fetchHobbies(token: authC.token.value!);
+    final result = await hobbyProvider.fetchHobbies();
     print(result.message);
     if (result.statusCode == 200) {
       listHobby.value = result.data!;
@@ -62,25 +66,25 @@ class ProfileController extends GetxController {
 
   void updateUser() async {
     onLoading.value = true;
-    User user = authC.user.value.copyWith(
-        name: nameController.value.text,
-        birthDate: DateFormat('yyyy-MM-dd').format(birthDate.value!),
-        address: addressController.value.text,
-        follower: int.parse(facebookValue.value!),
-        hobby: hobi.value);
-    final result = await authProvider.updateUser(user.id!, user.toMap(),
-        token: authC.token.value);
-    if (result.statusCode == REQUSET_SUCCESS) {
-      authC.user.value = user;
-      StoreProvide.storeMap("user", user.toMap());
-      Get.back();
-    } else {
-      onLoading.value = false;
-      Get.showSnackbar(GetSnackBar(
-        message: result.message,
-        duration: Duration(seconds: 2),
-      ));
-    }
+    // User user = authC.user.value.copyWith(
+    //     name: nameController.value.text,
+    //     birthDate: DateFormat('yyyy-MM-dd').format(birthDate.value!),
+    //     address: addressController.value.text,
+    //     follower: int.parse(facebookValue.value!),
+    //     hobby: hobi.value);
+    // final result = await authProvider.updateUser(user.id!, user.toMap(),
+    //     token: authC.token.value);
+    // if (result.statusCode == REQUEST_SUCCESS) {
+    //   authC.user.value = user;
+    //   StoreProvide.storeMap("user", user.toMap());
+    //   Get.back();
+    // } else {
+    //   onLoading.value = false;
+    //   Get.showSnackbar(GetSnackBar(
+    //     message: result.message,
+    //     duration: Duration(seconds: 2),
+    //   ));
+    // }
   }
   
 }

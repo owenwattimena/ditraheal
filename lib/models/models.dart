@@ -1,2 +1,10 @@
 part 'hobby.dart';
 part 'user.dart';
+part 'question.dart';
+part 'fb_follower.dart';
+part 'score_test.dart';
+part 'update_score_test.dart';
+part 'update_score_post_test.dart';
+part 'post_treatment.dart';
+part 'dayli_treatment.dart';
+part 'stat_bar.dart';
