@@ -135,14 +135,14 @@ class Provider {
       // print(jsonResponse);
       if (response.statusCode == 200) {
         return ApiReturnValue(
-            data: jsonResponse,
-            message: "success",
+            data: jsonResponse['data'],
+            message: jsonResponse['messages'],
             statusCode: 200,
             success: jsonResponse['success']);
       } else {
         return ApiReturnValue(
-            data: jsonResponse,
-            message: "error",
+            data: null,
+            message: jsonResponse['messages'],
             statusCode: response.statusCode,
             success: jsonResponse['success']);
       }

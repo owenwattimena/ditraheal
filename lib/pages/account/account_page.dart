@@ -51,13 +51,13 @@ class _AccountPageState extends State<AccountPage> {
               trailing: Icon(Icons.chevron_right),
               onTap: () => Get.to(()=>ProfilePage()),
             ),
-            ListTile(
-              title: Text("Hobi"),
-              leading: Icon(Icons.emoji_emotions_outlined),
-              trailing: Icon(Icons.chevron_right),
-              onTap: () => Get.to(()=>HobiPage()),
+            // ListTile(
+            //   title: Text("Hobi"),
+            //   leading: Icon(Icons.emoji_emotions_outlined),
+            //   trailing: Icon(Icons.chevron_right),
+            //   onTap: () => Get.to(()=>HobiPage()),
 
-            ),
+            // ),
             OutlineButtonWidget(
               text: "Logout",
               onPressed: (){

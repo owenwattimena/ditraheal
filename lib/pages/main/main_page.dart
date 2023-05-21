@@ -23,6 +23,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     authC.auth();
+    // dashC.getLink().then((_){});
     loadingC.getTreatmentPeriod().then((data) async {
       if (data.success) {
         await periodeC.getSkor();

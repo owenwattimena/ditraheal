@@ -8,3 +8,4 @@ part 'update_score_post_test.dart';
 part 'post_treatment.dart';
 part 'dayli_treatment.dart';
 part 'stat_bar.dart';
+part 'link_group.dart';

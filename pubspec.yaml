@@ -28,6 +28,7 @@ dependencies:
   loader_overlay: ^2.1.0
   shared_preferences: ^2.0.13
   table_calendar: any
+  url_launcher: any
 
 dev_dependencies:
   flutter_test:

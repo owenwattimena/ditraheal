@@ -55,6 +55,19 @@ class AuthController extends GetxController {
     }
   }
 
+  Future<User> userIdentities()async{
+    String? token = await StoreProvide.getString("token");
+    Map<String, dynamic>? _user = await StoreProvide.getMap("user");
+    final result = await AuthProvider.user(token??"", _user!['id']??0);
+    User userData = User();
+    if(result.success)
+    {
+      StoreProvide.storeMap("user", result.data);
+      userData = User.fromJson(result.data);
+    }
+    return userData;
+  }
+
   Future<void> logout() async {
     StoreProvide.clearStore();
     Get.offAllNamed('/');

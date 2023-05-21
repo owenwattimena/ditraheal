@@ -14,6 +14,8 @@ const String TRAUMA_QUESTION_URL = BASE_API_URL + '/references/level_trauma';
 const String EFFICATION_QUESTION_URL = BASE_API_URL + '/references/tes_efikasi';
 const String PERIODE_TREATMENT_URL = BASE_API_URL + "/periode/treatment";
 
+const String LINK_MEDSOS_URL = BASE_API_URL + "/references/link_medsos?hobi=";
+
 const String PRE_TES_LEVEL_TRAUMA_URL = BASE_API_URL + "/pre_test/level_trauma?periode_treatment_id=";
 const String PRE_TES_EFFICATION_URL = BASE_API_URL + "/pre_test/efikasi?periode_treatment_id=";
 

@@ -1,11 +1,11 @@
 part of 'models.dart';
 
 class User {
-  final int? id, follower, followers, hobby;
+  final int? id, follower, hobby;
   final String? phoneNumber, birthDate, address;
   final String? name;
 
-  User({this.id,this.followers, this.follower, this.hobby, this.phoneNumber, this.birthDate, this.address, this.name});
+  User({this.id, this.follower, this.hobby, this.phoneNumber, this.birthDate, this.address, this.name});
 
   User copyWith({
     int? id,
@@ -19,7 +19,7 @@ class User {
       User(
         id: id ?? this.id,
         follower: follower ?? this.follower,
-        followers: followers ?? this.followers,
+        // followers: followers ?? this.followers,
         hobby: hobby ?? this.hobby,
         phoneNumber: phoneNumber ?? this.phoneNumber,
         birthDate: birthDate ?? this.birthDate,
@@ -30,12 +30,12 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       id: json['id'],
-      follower: json['fb_follower_id'],
-      followers: json['follower'],
-      hobby: json['hobby_id'],
+      // follower: json['fb_follower_id'],
+      follower: json['follower'],
+      hobby: json['hobi'],
       phoneNumber: json['no_hp'],
       birthDate: json['tanggal_lahir'],
-      address: json['address'],
+      address: json['alamat'],
       name: json['name'],
     );
   }

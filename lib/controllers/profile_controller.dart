@@ -32,8 +32,19 @@ class ProfileController extends GetxController {
     getHobbies();
   }
 
+
+
   void setUsertoFields() async {
     User user = User.fromJson((await StoreProvide.getMap('user'))!);
+    print("------USER : ${user.toString()}------");
+    String? token = await StoreProvide.getString("token");
+
+    final identity = await AuthProvider.user(token??'0', user.id??0);
+
+    if(identity.success){
+      user = user.copyWith(address: identity.data['alamat']);
+    }
+
     nameController.value = new TextEditingController(text: user.name);
     birthDate.value = user.birthDate != null ? DateTime.parse(user.birthDate!) : null;
     addressController.value = new TextEditingController(text: user.address);
@@ -66,25 +77,31 @@ class ProfileController extends GetxController {
 
   void updateUser() async {
     onLoading.value = true;
-    // User user = authC.user.value.copyWith(
-    //     name: nameController.value.text,
-    //     birthDate: DateFormat('yyyy-MM-dd').format(birthDate.value!),
-    //     address: addressController.value.text,
-    //     follower: int.parse(facebookValue.value!),
-    //     hobby: hobi.value);
-    // final result = await authProvider.updateUser(user.id!, user.toMap(),
-    //     token: authC.token.value);
-    // if (result.statusCode == REQUEST_SUCCESS) {
-    //   authC.user.value = user;
-    //   StoreProvide.storeMap("user", user.toMap());
-    //   Get.back();
-    // } else {
-    //   onLoading.value = false;
-    //   Get.showSnackbar(GetSnackBar(
-    //     message: result.message,
-    //     duration: Duration(seconds: 2),
-    //   ));
-    // }
+    User user = authC.user.value.copyWith(
+        name: nameController.value.text,
+        birthDate: DateFormat('yyyy-MM-dd').format(birthDate.value!),
+        address: addressController.value.text,
+        // follower: int.parse(facebookValue.value!),
+        // hobby: hobi.value
+        );
+
+    String? token = await StoreProvide.getString("token");
+    
+    final result = await authProvider.updateUser(user.id!, user.toMap(),
+        token: token);
+
+    if (result.success) {
+      authC.user.value = user;
+      StoreProvide.storeMap("user", user.toMap());
+      onLoading.value = false;
+      Get.back();
+    } else {
+      onLoading.value = false;
+      Get.showSnackbar(GetSnackBar(
+        message: result.message,
+        duration: Duration(seconds: 2),
+      ));
+    }
   }
   
 }

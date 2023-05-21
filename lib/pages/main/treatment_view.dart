@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../controllers/auth_controller.dart';
+import '../../controllers/dashboard_controller.dart';
 import '../../controllers/treatment_controller.dart';
 import '../../shared/shared.dart';
 import '../../widgets/widgets.dart';
@@ -18,6 +19,7 @@ class TreatmentView extends StatefulWidget {
 class _TreatmentViewState extends State<TreatmentView> {
   final authC = Get.find<AuthController>();
   final treatmentC = Get.find<TreatmentController>();
+  final dashC = Get.find<DashboardController>();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -146,6 +148,7 @@ class _TreatmentViewState extends State<TreatmentView> {
                         } else {
                           final validasi = await treatmentC.validasiBeforePostTest();
                           if (validasi.success) {
+                            dashC.tabIndex.value = 0;
                             Get.toNamed('/landing-post-efikasi');
                           } else {
                             showDialog(

@@ -5,6 +5,11 @@ class DashboardContent extends StatelessWidget {
   final authC = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
+    authC.userIdentities().then((user) {
+      dashC.getLink(user.hobby ?? 0);
+      // print("HOBY : ${user.hobby}");
+    });
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -15,11 +20,12 @@ class DashboardContent extends StatelessWidget {
           ),
         ),
         SizedBox(height: 12),
-        Obx(()=>SocialCard(
-          color: Color(0xff9FCBF4),
-          imagePath: "assets/images/facebook.png",
-          text: "${authC.user.value.followers ?? "-"} Followers di Facebook",
-        )),
+        Obx(() => SocialCard(
+              color: Color(0xff9FCBF4),
+              imagePath: "assets/images/facebook.png",
+              text: "${authC.user.value.follower ?? "-"} Followers di Facebook",
+            )),
+
         /// HOBI
         SizedBox(height: 12),
         Text(
@@ -29,12 +35,13 @@ class DashboardContent extends StatelessWidget {
           ),
         ),
         SizedBox(height: 12),
-        dashC.hobby.value.title!=null?
-        SelectCardWidget(
-          isSelected: true,
-          title: dashC.hobby.value.title!,
-          imagePath: dashC.hobby.value.imagePath,
-        ):SizedBox(),
+        dashC.hobby.value.title != null
+            ? SelectCardWidget(
+                isSelected: true,
+                title: dashC.hobby.value.title!,
+                imagePath: dashC.hobby.value.imagePath,
+              )
+            : SizedBox(),
         SizedBox(height: 12),
         Text(
           "Komunitas",
@@ -57,24 +64,50 @@ class DashboardContent extends StatelessWidget {
               ),
             ],
           ),
-          child:Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children:[
-            Container(
-              margin: EdgeInsets.only(left: 10),
-              child: Text("Komunitas FB Penyembuh Trauma",style: primaryTextStyle,)),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Obx(() => Expanded(
+                child: GestureDetector(
+                    onTap: () {
+                      _launchUrl(dashC.linkGroup.value.link);
+                    },
+                    child: Container(
+                        margin: EdgeInsets.only(left: 10),
+                        child: Text(
+                            "${dashC.linkGroup.value.title}",
+                            style: primaryTextStyle,
+                            softWrap: true,
+                            maxLines: 2,
+                            overflow: TextOverflow.fade,
+                          ),
+                        )))),
             Container(
               padding: EdgeInsets.all(5),
               decoration: BoxDecoration(
-              color: Color(0xff7537D9),
+                color: Color(0xff7537D9),
                 borderRadius: BorderRadius.circular(3),
               ),
-              child:Transform.rotate(angle: -45,
-              child: Icon(Icons.link,color: Colors.white,)),
+              child: Transform.rotate(
+                  angle: -45,
+                  child: Icon(
+                    Icons.link,
+                    color: Colors.white,
+                  )),
             ),
-          ]
-        ),),
+          ]),
+        ),
       ],
     );
+  }
+
+  Future<void> _launchUrl(String _url) async {
+    // var url = 'fb://facewebmodal/f?href=https://www.facebook.com/groups/2169309036596884';
+    var url = 'fb://facewebmodal/f?href=$_url';
+    Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      if (!await launchUrl(uri)) {
+        throw Exception('Could not launch $_url');
+      }
+    }
   }
 }

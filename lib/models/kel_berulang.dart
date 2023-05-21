@@ -5,5 +5,5 @@ class KelBerulang{
 
   KelBerulang(this.id, this.title, this.key, this.checklist);
   
-  factory KelBerulang.fromMap(Map<String, dynamic> map) => KelBerulang(map['id'], map['title'], map['treatment_kelompok_berulang'], map['checklist']);
+  factory KelBerulang.fromMap(Map<String, dynamic> map) => KelBerulang(map['id'], map['title'], map['treatment_kelompok_berulang'], ((map['checklist'] is bool) ? map['checklist'] : false));
 }
